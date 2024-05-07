@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br" th:fragment="layout (conteudo)">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>SheHelps - Sistema de Chamados</title>
+</head>
+<body>
+
+<header>
+    <div class="header">
+
+        <div>
+            <a href="/">
+            <img src="assets/operator_64.png" alt="Operator, Icon by Freepik" width="56px" height="56px">
+            <h1>SheHelps</h1>
+            </a>
+        </div>
+        <ul>
+            <li><a class="faq" href="/user">Usuário</a></li>
+            <li><a class="faq" href="/technical">Técnico</a></li>
+            <li><a class="faq" href="/admin">Admin</a></li>
+            <li><a class="faq" href="/ticket">Abrir Chamado</a></li>
+        </ul>
+        <div>
+        <button onclick="window.location.href='/login';" class="login-btn">Entrar</button>
+        <button onclick="window.location.href='/register';" class="simple-btn">Criar Conta</button>
+    </div>
+    </div>
+</header>
+
+
+<main th:insert="${conteudo}">
+    <p>testess</p>
+
+    Contéudo Principal
+</main>
+
+<footer>
+    <div class="footer">
+        <span>Rodapé definido no template base</span>
+        <a class="footerLink" href="https://www.freepik.com/icon/operator_5639218#fromView=keyword&page=1&position=69&uuid=add4a66d-d289-4a0c-86ad-54eb7607c175">Icon by Freepik</a>
+    </div>
+</footer>
+
+</body>
+</html>
