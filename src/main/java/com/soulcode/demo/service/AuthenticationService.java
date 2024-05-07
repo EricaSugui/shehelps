@@ -1,26 +1,29 @@
 package com.soulcode.demo.service;
 
 import com.soulcode.demo.models.Persona;
+import com.soulcode.demo.models.TypeUser;
 import com.soulcode.demo.repositories.PersonaRepository;
+import com.soulcode.demo.repositories.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationService {
     @Autowired
-    private PersonaRepository personaRepository;
+    private TypeRepository typeRepository;
 
-    public void registerNewUser(String nome, String email, String senha) {
+    public void registerNewUser(String nome, String email, String senha, TypeUser tipo) {
         Persona user = new Persona();
         user.setNome(nome);
         user.setEmail(email);
         user.setSenha(senha);
+        user.setTipo(tipo);
 
-        personaRepository.save(user);
+        typeRepository.save(user);
     }
 
     public boolean checkIfEmailAlreadyExists(String email) {
-        Persona userExists = personaRepository.findByEmail(email);
+        Persona userExists = typeRepository.findByEmail(email);
         return userExists != null;
     }
 

@@ -1,53 +1,44 @@
 package com.soulcode.demo.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
 @Entity
 public class Persona {
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
 
+    @Getter
+    @Setter
     @Column
     private String Nome;
+    @Getter
+    @Setter
     @Column
     private String Email;
 
+    @Getter
+    @Setter
     @Column
     private String Senha;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private TypeUser tipo;
 
     public Persona() {
     }
 
-    public String getNome() {
-        return Nome;
+    public TypeUser getTipo() {
+        return tipo;
     }
 
-    public void setNome(String nome) {
-        Nome = nome;
-    }
-
-    public int getId() {
-        return Id;
-    }
-
-    public void setId(int id) {
-        Id = id;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public void setEmail(String email) {
-        Email = email;
-    }
-
-    public String getSenha() {
-        return Senha;
-    }
-
-    public void setSenha(String senha) {
-        Senha = senha;
+    public void setTipo(TypeUser tipo) {
+        this.tipo = tipo;
     }
 }
