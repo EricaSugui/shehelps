@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+header {
+    -webkit-box-shadow: 0 4px 6px -6px #222;
+    -moz-box-shadow: 0 4px 6px -6px #222;
+    box-shadow: 0 4px 6px -6px #222;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+.header {
+    display: flex;
+    width: 53.75rem;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+}
+.header > div, a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+}
+.header > ul {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+}
+h1 {
+    color: #1BB99A;
+}
+button {
+    border: 1px solid #1BB99A;
+    color: #1BB99A;
+    background-color: white;
+    padding: 8px;
+    border-radius: 3px;
+}
+.simple-btn:hover {
+    border: 2px solid #1BB99A;
+    padding: 7px;
+}
+.login-btn {
+    background-color: #1BB99A;
+    color: white;
+}
+.login-btn:hover {
+    background-color: #12806a;
+}
+main {
+    width: 53.75rem;
+    margin: 3.5rem auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.main-cards{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #e3f3e3;
+    border-radius: 3px;
+}
+.main-cards > div, img{
+    margin: 24px;
+}
+.main-faq {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin: 12px auto;
+}
+.main-faq > h3 {
+    color: #1BB99A;
+    margin: auto;
+}
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color: black;
+}
+
+footer {
+    color: white;
+    background-color: #272b2d;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.footer {
+    display: flex;
+    width: 53.75rem;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    padding: 1.5rem 0;
+}
+.footerLink:link, .footerLink:visited, .footerLink:hover, .footerLink:active {
+    text-decoration: none;
+    color: antiquewhite;
+}
