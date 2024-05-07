@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: layout (~{:: main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main>
+    <h2>
+        LOGIN PAGE AQUI
+    </h2>
+    <p>
+        A tela de login deve conter a possibilidade de logar no sistema e também como se
+        cadastrar (usuário e técnico).
+        ○ Utilizar a verificação de login para entrar no sistema - somente usuários
+        cadastrados podem entrar no sistema, ou devem ser cadastrados.
+        ○ Utilizar banco de dados MySQL.
+    </p>
+    <form action="/login" method="post">
+        <label for="loginEmail">Email:</label><br>
+        <input type="email" id="loginEmail" name="loginEmail"><br>
+        <label for="loginSenha">Senha:</label><br>
+        <input type="password" id="loginSenha" name="loginSenha"><br><br>
+        <label for="tipoUsuario">Tipo de Usuário:</label><br>
+        <select id="tipoUsuario" name="tipoUsuario">
+            <option value="USUARIO">Usuário</option>
+            <option value="ADMINISTRADOR">Administrador</option>
+            <option value="TECNICO">Técnico</option>
+        </select><br><br>
+        <button type="submit">Login</button>
+    </form>
+
+</main>
+</body>
+</html>
