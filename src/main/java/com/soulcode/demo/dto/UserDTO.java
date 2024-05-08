@@ -7,7 +7,7 @@ public class UserDTO {
     private String email;
     private String senha;
     private String confirmacaoSenha;
-
+    private String setor;
     private TypeUser tipo;
 
     public UserDTO() {
@@ -51,5 +51,13 @@ public class UserDTO {
 
     public void setConfirmacaoSenha(String confirmacaoSenha) {
         this.confirmacaoSenha = confirmacaoSenha;
+    }
+
+    public String getSetor() {
+        return setor;
+    }
+
+    public void setSetor(String setor) {
+        this.setor = setor;
     }
 }

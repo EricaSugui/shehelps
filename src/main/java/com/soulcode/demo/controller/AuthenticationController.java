@@ -33,12 +33,13 @@ public class AuthenticationController {
                                        @RequestParam String email,
                                        @RequestParam String senha,
                                        @RequestParam String confirmacaoSenha,
+                                       @RequestParam String setor,
                                        @RequestParam TypeUser tipoUsuario){
 
         logger.debug("Recebido pedido de registro de novo usuário.");
 
-        if (nome == null || email == null || senha == null) {
-            logger.error("Nome, email e senha são obrigatórios.");
+        if (nome == null || email == null || senha == null || setor == null) {
+            logger.error("Nome, email, senha e setor são obrigatórios.");
             return ResponseEntity.badRequest().body("Por favor, preencha todos os campos obrigatórios.");
         }
 
@@ -53,7 +54,7 @@ public class AuthenticationController {
         }
 
         try {
-            autenticacaoService.registerNewUser(nome, email, senha, tipoUsuario);
+            autenticacaoService.registerNewUser(nome, email, senha, setor, tipoUsuario);
             logger.info("Usuário registrado com sucesso: " + email);
             return ResponseEntity.ok("Usuário registrado com sucesso.");
         } catch (Exception e) {

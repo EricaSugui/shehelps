@@ -27,6 +27,11 @@ public class Persona {
     @Column
     private String Senha;
 
+    @Getter
+    @Setter
+    @Column
+    private String Setor;
+
     @Column
     @Enumerated(EnumType.STRING)
     private TypeUser tipo;
