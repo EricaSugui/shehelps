@@ -24,14 +24,16 @@ public class Ticket {
 
     private int prioridade;
 
+    @Column(name = "data_inicio")
     private LocalDateTime dataInicio;
 
     private String status;
 
-    //    @ManyToOne
-//    @JoinColumn(name = "setor_id")
-//    private Sector sector;
-//
+    @ManyToOne
+    @JoinColumn(name = "setor_id")
+    private Setor setor;
+
+
 //    @ManyToOne
 //    @JoinColumn(name = "status_id")
 //    private Status statusId;
