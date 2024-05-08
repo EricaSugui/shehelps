@@ -32,6 +32,7 @@ public class Persona {
     private TypeUser tipo;
 
     public Persona() {
+
     }
 
     public TypeUser getTipo() {
