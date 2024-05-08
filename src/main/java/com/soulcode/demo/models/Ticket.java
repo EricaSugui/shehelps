@@ -27,6 +27,9 @@ public class Ticket {
     @Column(name = "data_inicio")
     private LocalDateTime dataInicio;
 
+    @Column(name = "data_atualizacao")
+    private LocalDateTime dataAtualizacao;
+
     private String status;
 
     @ManyToOne
