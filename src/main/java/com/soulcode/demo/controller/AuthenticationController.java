@@ -2,6 +2,7 @@ package com.soulcode.demo.controller;
 
 import ch.qos.logback.classic.Logger;
 import com.soulcode.demo.models.Persona;
+import com.soulcode.demo.models.Sector;
 import com.soulcode.demo.models.TypeUser;
 import com.soulcode.demo.repositories.TypeRepository;
 import com.soulcode.demo.service.AuthenticationService;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 
 @Controller
@@ -24,7 +27,6 @@ public class AuthenticationController {
     @Autowired
     AuthenticationService autenticacaoService;
 
-
     @Autowired
     TypeRepository typeRepository;
 
@@ -33,8 +35,8 @@ public class AuthenticationController {
                                        @RequestParam String email,
                                        @RequestParam String senha,
                                        @RequestParam String confirmacaoSenha,
-                                       @RequestParam String setor,
-                                       @RequestParam TypeUser tipoUsuario){
+                                       @RequestParam TypeUser tipoUsuario,
+                                       @RequestParam Sector setor) { // Corrigindo o nome do parâmetro para 'setor'
 
         logger.debug("Recebido pedido de registro de novo usuário.");
 
@@ -54,7 +56,7 @@ public class AuthenticationController {
         }
 
         try {
-            autenticacaoService.registerNewUser(nome, email, senha, setor, tipoUsuario);
+            autenticacaoService.registerNewUser(nome, email, senha, tipoUsuario, setor);
             logger.info("Usuário registrado com sucesso: " + email);
             return ResponseEntity.ok("Usuário registrado com sucesso.");
         } catch (Exception e) {
@@ -65,28 +67,27 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestParam String loginEmail,
-                                        @RequestParam String loginSenha,
-                                        @RequestParam TypeUser tipoUsuario){
+    public RedirectView login(@RequestParam String loginEmail,
+                              @RequestParam String loginSenha,
+                              @RequestParam TypeUser tipoUsuario,
+                              @RequestParam Sector setor,
+                              RedirectAttributes redirectAttributes) {
 
         logger.debug("Recebido pedido de login de usuário.");
 
         if (loginEmail.isEmpty() || loginSenha.isEmpty()) {
             logger.error("Email e senha são obrigatórios.");
-            return ResponseEntity.badRequest().body("Por favor, preencha todos os campos obrigatórios.");
+            return new RedirectView("/login?error=true");
         }
 
-        // Busca o usuário pelo email no banco de dados
-        Persona usuario = typeRepository.findByEmailAndTipoUsuario(loginEmail, tipoUsuario);
+        Persona usuario = typeRepository.findByEmailAndTipoUsuarioAndSetor(loginEmail, tipoUsuario, setor);
 
-        // Verifica se o usuário foi encontrado e se a senha está correta
         if (usuario != null && usuario.getSenha().equals(loginSenha)) {
             logger.info("Usuário autenticado com sucesso: " + loginEmail);
-            return ResponseEntity.ok("Login efetuado com sucesso.");
+            return new RedirectView("/user");
         } else {
             logger.error("Credenciais inválidas.");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body("Credenciais inválidas. Por favor, verifique seu email e senha.");
+            return new RedirectView("/login?error=true");
         }
     }
 }

@@ -22,24 +22,18 @@ public class Persona {
     @Column
     private String Senha;
 
-    @Getter
     @Setter
     @Column
-    private String Setor;
+    @Enumerated(EnumType.STRING)
+    private TypeUser Tipo;
 
+    @Setter
     @Column
     @Enumerated(EnumType.STRING)
-    private TypeUser tipo;
+    private Sector Setor;
 
     public Persona() {
 
     }
 
-    public TypeUser getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TypeUser tipo) {
-        this.tipo = tipo;
-    }
 }
