@@ -12,7 +12,7 @@ public class Setor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private int id;
 
     @Column(name = "nome_setor")
     private String nomeSetor;

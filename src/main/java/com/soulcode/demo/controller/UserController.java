@@ -6,6 +6,7 @@ import com.soulcode.demo.models.Persona;
 import com.soulcode.demo.models.TypeUser;
 import com.soulcode.demo.repositories.PersonaRepository;
 import com.soulcode.demo.service.AuthenticationService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,11 @@ public class UserController {
     @GetMapping("/user")
     public String user(Model model) {
         return "user";
+    }
+
+    @GetMapping("/pagina-adm")
+    public String pageAdm(@RequestParam(required = false) String nome, Model model, HttpServletRequest request) {
+        return "ainda não sei o que colocar aqui kkkkk";
     }
 
 }
