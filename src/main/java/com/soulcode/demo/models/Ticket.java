@@ -33,11 +33,6 @@ public class Ticket {
     @JoinColumn(name = "setor_id")
     private Setor setor;
 
-
-//    @ManyToOne
-//    @JoinColumn(name = "status_id")
-//    private Status statusId;
-
     @ManyToOne
     @JoinColumn(name = "tecnico_id")
     private Persona tecnical;
@@ -54,7 +49,4 @@ public class Ticket {
     public Ticket() {
     }
 
-//    public String getNomeSolicitante() {
-//        return (user != null) ? user.getNome() : null;
-//    }
 }
