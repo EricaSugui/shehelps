@@ -5,25 +5,20 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
 public class Persona {
-    @Getter
-    @Setter
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
 
-    @Getter
-    @Setter
     @Column
     private String Nome;
-    @Getter
-    @Setter
+
     @Column
     private String Email;
 
-    @Getter
-    @Setter
     @Column
     private String Senha;
 
