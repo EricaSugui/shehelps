@@ -10,7 +10,7 @@ import lombok.Setter;
 
 public class Setor {
 
-    @jakarta.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
 
