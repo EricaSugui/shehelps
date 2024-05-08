@@ -30,5 +30,9 @@ public class PublicController {
     public String ticket() {
         return "ticket";
     }
+    @GetMapping("/sendTicket")
+    public String sendTicket() {
+        return "sendTicket";
+    }
 
 }

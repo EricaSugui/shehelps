@@ -11,15 +11,26 @@
     </h2>
     <p>
         Um chamado
-
         técnico é quando um usuário solicita um atendimento e um técnico
-
         assume esse chamado, começando o atendimento e modificando seu
-
         status. Cada chamado inclui informações como usuário, setor, descrição,
-
         prioridade e data de início.
     </p>
+    <form action="/sendTicket" method="GET"> <!-- mudar para POST-->
+        <label for="subject">Assunto:</label><br>
+        <input type="text" id="subject" name="Assunto"><br>
+        <label for="description">Descrição:</label><br>
+        <textarea id="description" name="descrição" rows="10" cols="50"></textarea><br>
+        <label for="section">Setor:</label><br>
+        <select id="section" name="setor">
+            <option value="">-- Escolha um setor --</option>
+            <option value="rh">RH</option>
+            <option value="financeiro">Financeiro</option>
+            <option value="engenharia">Engenharia</option>
+        </select>
+        <button type="submit">Enviar</button>
+
+    </form>
 </main>
 
 </body>
