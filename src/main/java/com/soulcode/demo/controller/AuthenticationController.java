@@ -83,7 +83,7 @@ public class AuthenticationController {
 
         if (usuario != null && usuario.getSenha().equals(loginSenha)) {
             logger.info("Usuário autenticado com sucesso: " + loginEmail);
-            return new RedirectView("/chamado");
+            return new RedirectView("/chamado?usuario=" + usuario.getNome() + "&setor=" + usuario.getSetor());
         } else {
             logger.error("Credenciais inválidas.");
             return new RedirectView("/login?error=true");

@@ -1,35 +1,19 @@
 package com.soulcode.demo.dto;
 
+import com.soulcode.demo.models.Sector;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class TicketDTO {
 
     private String descricao;
-    private String usuario;
     private String prioridade;
+    private Sector setorDeDirecionamento;
 
     public TicketDTO() {
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getPrioridade() {
-        return prioridade;
-    }
-
-    public void setPrioridade(String prioridade) {
-        this.prioridade = prioridade;
-    }
 }
+

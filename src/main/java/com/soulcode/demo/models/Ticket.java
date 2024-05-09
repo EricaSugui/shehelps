@@ -20,14 +20,6 @@ public class Ticket {
 
     @Getter @Setter
     @Column
-    private String usuario;
-
-    @Getter @Setter
-    @Column
-    private String setorUsuario;
-
-    @Getter @Setter
-    @Column
     private String prioridade;
 
     @Setter

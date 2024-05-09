@@ -27,8 +27,8 @@
             <option value="alta">Alta</option>
         </select><br>
 
-        <label for="setorDirecionamento">Setor de Direcionamento:</label><br>
-        <select id="setorDirecionamento" name="setorDirecionamento">
+        <label for="setorDeDirecionamento">Setor de Direcionamento:</label><br>
+        <select id="setorDeDirecionamento" name="setorDeDirecionamento">
             <option value="Administracao">Administração</option>
             <option value="Recursos_Humanos">Recursos Humanos</option>
             <option value="Financeiro">Financeiro</option>
@@ -40,7 +40,22 @@
             <option value="Logistica">Logística</option>
         </select><br>
 
+        <!-- Adicionar campos ocultos para armazenar as informações do usuário -->
+        <input type="hidden" id="usuario" name="usuario" value="">
+        <input type="hidden" id="setor" name="setor" value="">
+
         <button type="submit">Criar Chamado</button>
     </form>
+
+    <script>
+        // Extrair os parâmetros da URL
+        const params = new URLSearchParams(window.location.search);
+        const usuario = params.get('usuario');
+        const setor = params.get('setor');
+
+        // Pré-preencher os campos do formulário com as informações do usuário
+        document.getElementById('usuario').value = usuario;
+        document.getElementById('setor').value = setor;
+    </script>
 </body>
 </html>
