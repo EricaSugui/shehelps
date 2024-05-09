@@ -70,7 +70,6 @@ public class AuthenticationController {
     public RedirectView login(@RequestParam String loginEmail,
                               @RequestParam String loginSenha,
                               @RequestParam TypeUser tipoUsuario,
-                              @RequestParam Sector setor,
                               RedirectAttributes redirectAttributes) {
 
         logger.debug("Recebido pedido de login de usuário.");
@@ -80,14 +79,15 @@ public class AuthenticationController {
             return new RedirectView("/login?error=true");
         }
 
-        Persona usuario = typeRepository.findByEmailAndTipoUsuarioAndSetor(loginEmail, tipoUsuario, setor);
+        Persona usuario = typeRepository.findByEmailAndTipoUsuario(loginEmail, tipoUsuario);
 
         if (usuario != null && usuario.getSenha().equals(loginSenha)) {
             logger.info("Usuário autenticado com sucesso: " + loginEmail);
-            return new RedirectView("/user");
+            return new RedirectView("/chamado");
         } else {
             logger.error("Credenciais inválidas.");
             return new RedirectView("/login?error=true");
         }
     }
+
 }

@@ -4,52 +4,47 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "chamados")
-@Setter
-@Getter
 public class Ticket {
 
-
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    private String titulo;
-
+    @Getter @Setter
+    @Column
     private String descricao;
 
-    private int prioridade;
+    @Getter @Setter
+    @Column
+    private String usuario;
 
-    @Column(name = "data_inicio")
-    private LocalDateTime dataInicio;
+    @Getter @Setter
+    @Column
+    private String setorUsuario;
 
-    @Column(name = "data_atualizacao")
-    private LocalDateTime dataAtualizacao;
-
-    private String status;
-
-    @ManyToOne
-    @JoinColumn(name = "setor_id")
-    private Setor setor;
-
-    @ManyToOne
-    @JoinColumn(name = "tecnico_id")
-    private Persona tecnical;
+    @Getter @Setter
+    @Column
+    private String prioridade;
 
     @Setter
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Persona user;
+    @Getter
+    @Column
+    private LocalDate dataSolicitacaoAtual;
 
-    public LocalDateTime getDataInicio() {
-        return LocalDateTime.now();
-    }
+    @Setter
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Sector setorDeDirecionamento;
 
     public Ticket() {
+    }
+
+    public Sector getSetorDeDirecionamento() {
+        return setorDeDirecionamento;
     }
 
 }

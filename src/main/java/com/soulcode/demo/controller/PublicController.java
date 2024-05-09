@@ -26,13 +26,6 @@ public class PublicController {
     public String register() {
         return "register";
     }
-    @GetMapping("/ticket")
-    public String ticket() {
-        return "ticket";
-    }
-    @GetMapping("/sendTicket")
-    public String sendTicket() {
-        return "sendTicket";
-    }
+
 
 }
