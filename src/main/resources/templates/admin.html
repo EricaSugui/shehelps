@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{base :: layout (~{:: main})}">
+<html lang="en" th:replace="~{base :: layout (~{:: main})}" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -17,6 +17,72 @@
         cadastramento de informações vitais, garantindo flexibilidade e adaptabilidade
         ao ambiente corporativo.
     </p>
+
+    <h1> Chamados criados </h1>
+    <div style="display: flex ; flex-direction: row; gap: 20px">
+        <div>
+            <p>Total de chamados Em aberto: </p>
+            <p th:text="${contagemStatusEmAberto}"></p>
+        </div>
+
+        <div>
+            <p>Total de chamados Em atendimento: </p>
+            <p th:text="${contagemStatusEmAtendimento}"></p>
+        </div>
+
+        <div>
+            <p>Total de chamados Em finalizado: </p>
+            <p th:text="${contagemStatusFinalizado}"></p>
+        </div>
+    </div>
+
+    <div >
+        <table >
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Status</th>
+            </tr>
+            <tr th:each="item : ${items}">
+                <td th:text="${item.nome}"></td>
+                <td th:text="${item.descricao}"></td>
+                <td th:text="${item.prioridade}"></td>
+            </tr>
+        </table>
+    </div>
+
+    <form action="#" th:action="@{/admin}" th:object="${filtro}">
+        <select th:field="*{prioridade}">
+            <option value="">Todas</option>
+            <option value="Baixa">Baixa</option>
+            <option value="Média">Média</option>
+            <option value="Alta">Alta</option>
+        </select>
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <!-- Tabela de Tickets -->
+    <table>
+        <!-- Cabeçalho da Tabela -->
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Prioridade</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <!-- Corpo da Tabela -->
+        <tbody>
+        <!-- Iterar sobre os tickets filtrados -->
+        <tr th:each="ticket : ${tickets}">
+            <td th:text="${ticket.nome}"></td>
+            <td th:text="${ticket.descricao}"></td>
+            <td th:text="${ticket.prioridade}"></td>
+            <td th:text="${ticket.status}"></td>
+        </tr>
+        </tbody>
+    </table>
 </main>
 </body>
 </html>
