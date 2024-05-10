@@ -10,8 +10,8 @@ public interface TypeRepository extends JpaRepository<Persona, Integer> {
     @Query("SELECT p FROM Persona p WHERE p.Email = :email")
     Persona findByEmail(String email);
 
-    @Query("SELECT p FROM Persona p WHERE p.Nome = :nome")
-    Persona findByNome(String nome);
+    @Query("SELECT p FROM Persona p WHERE p.Nome = :nome AND p.Setor = :setor")
+    Persona findByNomeAndSetor(String nome, Sector setor);
 
     @Query("SELECT p FROM Persona p WHERE p.Email = :email AND p.Tipo = :tipoUsuario")
     Persona findByEmailAndTipoUsuario(String email, TypeUser tipoUsuario);

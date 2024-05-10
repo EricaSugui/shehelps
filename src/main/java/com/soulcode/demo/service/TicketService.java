@@ -1,6 +1,7 @@
 package com.soulcode.demo.service;
 
 import com.soulcode.demo.models.Sector;
+import com.soulcode.demo.models.Status;
 import com.soulcode.demo.models.Ticket;
 import com.soulcode.demo.repositories.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class TicketService {
         ticket.setPrioridade(prioridade);
         ticket.setDataSolicitacaoAtual(LocalDate.now());
         ticket.setSetorDeDirecionamento(setorDeDirecionamento);
+        ticket.setStatus(Status.Aguardando_técnico);
+
 
         ticketRepository.save(ticket);
     }

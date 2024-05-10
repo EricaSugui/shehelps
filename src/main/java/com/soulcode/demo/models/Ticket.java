@@ -6,37 +6,39 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
 @Entity
 public class Ticket {
 
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter @Setter
+    @Column
+    private String nome;
+
+    @Column
+    private Sector Setor;
+
     @Column
     private String descricao;
 
-    @Getter @Setter
     @Column
     private String prioridade;
 
-    @Setter
-    @Getter
     @Column
     private LocalDate dataSolicitacaoAtual;
 
-    @Setter
     @Column
     @Enumerated(EnumType.STRING)
     private Sector setorDeDirecionamento;
 
-    public Ticket() {
-    }
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
-    public Sector getSetorDeDirecionamento() {
-        return setorDeDirecionamento;
+    public Ticket() {
     }
 
 }

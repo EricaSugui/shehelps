@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-
 @Controller
 @RequestMapping
 public class AuthenticationController {
@@ -81,13 +80,25 @@ public class AuthenticationController {
 
         Persona usuario = typeRepository.findByEmailAndTipoUsuario(loginEmail, tipoUsuario);
 
+
         if (usuario != null && usuario.getSenha().equals(loginSenha)) {
             logger.info("Usuário autenticado com sucesso: " + loginEmail);
-            return new RedirectView("/chamado?usuario=" + usuario.getNome() + "&setor=" + usuario.getSetor());
+
+            // Redirecionar com base no tipo de usuário
+            switch (tipoUsuario) {
+                case USUARIO:
+                    return new RedirectView("/chamado");
+                case ADMINISTRADOR:
+                    return new RedirectView("/pagina-do-administrador");
+                case TECNICO:
+                    return new RedirectView("/pagina-do-tecnico");
+                default:
+                    logger.error("Tipo de usuário inválido.");
+                    return new RedirectView("/login?error=true");
+            }
         } else {
             logger.error("Credenciais inválidas.");
             return new RedirectView("/login?error=true");
         }
     }
-
 }
