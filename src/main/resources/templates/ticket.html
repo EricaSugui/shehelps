@@ -40,22 +40,36 @@
             <option value="Logistica">Logística</option>
         </select><br>
 
-        <!-- Adicionar campos ocultos para armazenar as informações do usuário -->
-        <input type="hidden" id="usuario" name="usuario" value="">
-        <input type="hidden" id="setor" name="setor" value="">
+        <!-- Adicionando campos ocultos para armazenar as informações do usuário -->
+        <input type="hidden" id="usuario" name="usuario" th:value="${param.usuario}">
+        <input type="hidden" id="setor" name="setor" th:value="${param.setor}">
+
+        <div th:if="${param.mensagem}">
+            <script th:inline="javascript">
+                alert([[${param.mensagem}]]);
+            </script>
+        </div>
 
         <button type="submit">Criar Chamado</button>
     </form>
+</main>
 
-    <script>
-        // Extrair os parâmetros da URL
-        const params = new URLSearchParams(window.location.search);
-        const usuario = params.get('usuario');
-        const setor = params.get('setor');
+<script>
+    // Extrair os parâmetros da URL
+    const params = new URLSearchParams(window.location.search);
+    const usuario = params.get('usuario');
+    const setor = params.get('setor');
+    const mensagem = params.get('mensagem'); // Adicionando mensagem
 
-        // Pré-preencher os campos do formulário com as informações do usuário
-        document.getElementById('usuario').value = usuario;
-        document.getElementById('setor').value = setor;
-    </script>
+    // Pré-preencher os campos do formulário com as informações do usuário
+    document.getElementById('usuario').value = usuario;
+    document.getElementById('setor').value = setor;
+
+    // Exibir alerta com a mensagem, se presente
+    if (mensagem) {
+        alert(mensagem);
+    }
+</script>
+
 </body>
 </html>

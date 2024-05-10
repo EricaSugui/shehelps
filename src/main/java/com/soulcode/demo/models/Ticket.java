@@ -19,7 +19,7 @@ public class Ticket {
     private String nome;
 
     @Column
-    private Sector Setor;
+    private String setor;
 
     @Column
     private String descricao;

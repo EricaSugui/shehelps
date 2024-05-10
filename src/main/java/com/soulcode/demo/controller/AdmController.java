@@ -53,11 +53,7 @@ public class AdmController {
 
         return "admin";
 
-//        } else {
-//
-//            return "redirect:/login";
-//
-//        }
+
     }
 
 }

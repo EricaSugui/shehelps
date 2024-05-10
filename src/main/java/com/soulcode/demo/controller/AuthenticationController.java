@@ -6,6 +6,7 @@ import com.soulcode.demo.models.Sector;
 import com.soulcode.demo.models.TypeUser;
 import com.soulcode.demo.repositories.TypeRepository;
 import com.soulcode.demo.service.AuthenticationService;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -69,7 +70,8 @@ public class AuthenticationController {
     public RedirectView login(@RequestParam String loginEmail,
                               @RequestParam String loginSenha,
                               @RequestParam TypeUser tipoUsuario,
-                              RedirectAttributes redirectAttributes) {
+                              RedirectAttributes redirectAttributes,
+                              HttpSession session) {
 
         logger.debug("Recebido pedido de login de usuário.");
 
@@ -84,14 +86,17 @@ public class AuthenticationController {
         if (usuario != null && usuario.getSenha().equals(loginSenha)) {
             logger.info("Usuário autenticado com sucesso: " + loginEmail);
 
+            session.setAttribute("nomeUsuario", usuario.getNome());
+            session.setAttribute("setorUsuario", usuario.getSetor());
+
             // Redirecionar com base no tipo de usuário
             switch (tipoUsuario) {
                 case USUARIO:
                     return new RedirectView("/chamado");
                 case ADMINISTRADOR:
-                    return new RedirectView("/pagina-do-administrador");
+                    return new RedirectView("/admin");
                 case TECNICO:
-                    return new RedirectView("/pagina-do-tecnico");
+                    return new RedirectView("/technical");
                 default:
                     logger.error("Tipo de usuário inválido.");
                     return new RedirectView("/login?error=true");

@@ -4,6 +4,7 @@ import com.soulcode.demo.models.Sector;
 import com.soulcode.demo.models.Status;
 import com.soulcode.demo.models.Ticket;
 import com.soulcode.demo.repositories.TicketRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,23 +13,23 @@ import java.util.List;
 
 @Service
 public class TicketService {
-    @Autowired
-    TicketRepository ticketRepository;
 
+    private final TicketRepository ticketRepository;
 
     @Autowired
     public TicketService(TicketRepository ticketRepository) {
         this.ticketRepository = ticketRepository;
     }
 
-    public void createTicket(String descricao, String prioridade, Sector setorDeDirecionamento) {
+    public void createTicket(String descricao, String prioridade, Sector setorDeDirecionamento, String nomeUsuario, String setor) {
         Ticket ticket = new Ticket();
         ticket.setDescricao(descricao);
         ticket.setPrioridade(prioridade);
         ticket.setDataSolicitacaoAtual(LocalDate.now());
         ticket.setSetorDeDirecionamento(setorDeDirecionamento);
         ticket.setStatus(Status.Aguardando_técnico);
-
+        ticket.setNome(nomeUsuario);
+        ticket.setSetor(setor);
 
         ticketRepository.save(ticket);
     }

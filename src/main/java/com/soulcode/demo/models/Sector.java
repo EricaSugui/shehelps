@@ -9,5 +9,7 @@ public enum Sector {
     Producao,
     TI,
     Juridico,
-    Logistica
+    Logistica;
+
+
 }

@@ -3,7 +3,9 @@ package com.soulcode.demo.controller;
 import com.soulcode.demo.dto.TicketDTO;
 import com.soulcode.demo.models.Persona;
 import com.soulcode.demo.models.Sector;
+import com.soulcode.demo.repositories.TypeRepository;
 import com.soulcode.demo.service.TicketService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,15 +14,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 
+
 @Controller
 @RequestMapping
 public class TicketController {
 
+
     private final TicketService ticketService;
+    private TypeRepository typeRepository;
 
     @Autowired
     public TicketController(TicketService ticketService) {
         this.ticketService = ticketService;
+        this.typeRepository = typeRepository;
     }
 
     @GetMapping("/chamado")
@@ -35,10 +41,19 @@ public class TicketController {
             @RequestParam String prioridade,
             @RequestParam Sector setorDeDirecionamento,
             RedirectAttributes redirectAttributes,
-            Principal principal) {
+            Principal principal,
+            HttpSession session) {
 
-        ticketService.createTicket(descricao, prioridade, setorDeDirecionamento);
-        return "ticket";
+        String nomeUsuario = (String) session.getAttribute("nomeUsuario");
+        String setor = (String) session.getAttribute("setor");
+
+        ticketService.createTicket(descricao, prioridade, setorDeDirecionamento, nomeUsuario, setor);
+
+
+
+        redirectAttributes.addAttribute("mensagem", "Chamado criado com sucesso!");
+
+        return "redirect:/chamado";
     }
 }
 
