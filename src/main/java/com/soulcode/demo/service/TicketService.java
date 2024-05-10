@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class TicketService {
+    @Autowired
+    TicketRepository ticketRepository;
 
-    private final TicketRepository ticketRepository;
 
     @Autowired
     public TicketService(TicketRepository ticketRepository) {
@@ -29,5 +31,13 @@ public class TicketService {
 
 
         ticketRepository.save(ticket);
+    }
+
+    public List<Ticket> filtrarPorPrioridade(String prioridade) {
+        if (prioridade != null && !prioridade.isEmpty()) {
+            return ticketRepository.findByPrioridade(prioridade);
+        } else {
+            return ticketRepository.findAll();
+        }
     }
 }
