@@ -28,7 +28,10 @@ public class AdmController {
     TicketService ticketService;
 
     @GetMapping("admin")
-    public String todosChamados(Model model, HttpSession session, @ModelAttribute("filtro") Ticket filtro) {
+    public String todosChamados(Model model,
+                                HttpSession session,
+                                @ModelAttribute("filtroPropriedade") Ticket filtroPropriedade,
+                                @ModelAttribute("filtroSetor") Ticket filtroSetor) {
 
 //        Persona usuarioLogado = (Persona) session.getAttribute("usuarioLogado");
 //        if (usuarioLogado != null && "ADMINISTRADOR".equals(usuarioLogado.getTipo())) {
@@ -48,8 +51,11 @@ public class AdmController {
         model.addAttribute("contagemStatusEmAtendimento", contagemStatusEmAtendimento);
         model.addAttribute("contagemStatusFinalizado", contagemStatusFinalizado);
 
-        List<Ticket> ticketsFiltrados = ticketService.filtrarPorPrioridade(filtro.getPrioridade());
-        model.addAttribute("tickets", ticketsFiltrados);
+        List<Ticket> ticketsFiltradosPrioridade = ticketService.filtrarPorPrioridade(filtroPropriedade.getPrioridade());
+        model.addAttribute("ticketsFiltradosPrioridade", ticketsFiltradosPrioridade);
+
+        List<Ticket> ticketsSetorDirecionamento = ticketService.filtrarPorSetorDirecionamento(filtroSetor.getSetorDeDirecionamento());
+        model.addAttribute("ticketsSetorDirecionamento", ticketsSetorDirecionamento);
 
         return "admin";
 
