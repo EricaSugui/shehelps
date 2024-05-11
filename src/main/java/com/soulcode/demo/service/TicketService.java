@@ -34,9 +34,17 @@ public class TicketService {
         ticketRepository.save(ticket);
     }
 
-    public List<Ticket> filtrarPorPrioridade(String prioridade) {
-        if (prioridade != null && !prioridade.isEmpty()) {
-            return ticketRepository.findByPrioridade(prioridade);
+    public List<Ticket> filtrarPorPrioridade(String filtroPropriedade) {
+        if (filtroPropriedade != null && !filtroPropriedade.isEmpty()) {
+            return ticketRepository.findByPrioridade(filtroPropriedade);
+        } else {
+            return ticketRepository.findAll();
+        }
+    }
+
+    public List<Ticket> filtrarPorSetorDirecionamento(Sector setorDeDirecionamento) {
+        if (setorDeDirecionamento != null) {
+            return ticketRepository.findBySetorDeDirecionamento(setorDeDirecionamento);
         } else {
             return ticketRepository.findAll();
         }

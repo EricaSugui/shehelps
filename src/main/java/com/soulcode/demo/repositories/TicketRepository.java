@@ -12,4 +12,5 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     List<Ticket>findByPrioridade(String prioridade);
     List<Ticket> findBySetorDeDirecionamento(Sector sector);
     List<Ticket> findByStatus(Status status);
+
 }
