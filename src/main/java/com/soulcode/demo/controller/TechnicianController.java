@@ -1,6 +1,7 @@
 package com.soulcode.demo.controller;
 
 import com.soulcode.demo.models.Sector;
+import com.soulcode.demo.models.Status;
 import com.soulcode.demo.models.Ticket;
 import com.soulcode.demo.repositories.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class TechnicianController {
     public String telaTecnico(Model model) {
 //        HttpSession session  Persona usuarioLogado = (Persona) session.getAttribute("usuarioLogado");
         // localiza pela prioridade, depois vou trocar pra status
-        List<Ticket> items = ticketRepository.findByPrioridade("Alta");
+        List<Ticket> items = ticketRepository.findByStatus(Status.valueOf("Aguardando_técnico"));
         model.addAttribute("items", items);
 // Localiza pelo setor
         List<Ticket> abertos = ticketRepository.findBySetorDeDirecionamento(Sector.TI);

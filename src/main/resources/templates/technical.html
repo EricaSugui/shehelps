@@ -27,11 +27,17 @@
           <th>ID</th>
           <th>Descrição</th>
           <th>Prioridade</th>
+          <th>Nome</th>
+          <th>Setor</th>
+          <th>Status</th>
         </tr>
         <tr th:each="item : ${items}">
           <td th:text="${item.id}"></td>
           <td th:text="${item.descricao}"></td>
           <td th:text="${item.prioridade}"></td>
+          <td th:text="${item.nome}"></td>
+          <td th:text="${item.setorDeDirecionamento}"></td>
+          <td th:text="${item.status}"></td>
 
         </tr>
       </table>
@@ -43,11 +49,17 @@
           <th>ID</th>
           <th>Descrição</th>
           <th>Prioridade</th>
+          <th>Nome</th>
+          <th>Setor</th>
+          <th>Status</th>
         </tr>
         <tr th:each="aberto : ${abertos}">
           <td th:text="${aberto.id}"></td>
           <td th:text="${aberto.descricao}"></td>
           <td th:text="${aberto.prioridade}"></td>
+          <td th:text="${aberto.nome}"></td>
+          <td th:text="${aberto.setorDeDirecionamento}"></td>
+          <td th:text="${aberto.status}"></td>
 
         </tr>
       </table>
