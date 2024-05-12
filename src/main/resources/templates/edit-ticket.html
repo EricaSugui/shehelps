@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: layout (~{:: main})}" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main>
+    <h1>Detalhes do Ticket</h1>
+    <p>Nome: <span th:text="${ticket.nome}"></span></p>
+    <p>Setor de Direcionamento: <span th:text="${ticket.setorDeDirecionamento}"></span></p>
+    <p>Descrição: <span th:text="${ticket.descricao}"></span></p>
+    <p>Prioridade Atual: <span th:text="${ticket.prioridade}"></span></p>
+    <p>Status: <span th:text="${ticket.status}"></span> </p>
+
+    <form action="/edit-ticket" method="post">
+        <input type="hidden" name="id" th:value="${ticket.id}">
+
+        <label for="prioridade">Prioridade:</label>
+        <select id="prioridade" name="prioridade">
+            <option value="alta" th:selected="${ticket.prioridade == 'alta'}">Alta</option>
+            <option value="média" th:selected="${ticket.prioridade == 'média'}">Média</option>
+            <option value="baixa" th:selected="${ticket.prioridade == 'baixa'}">Baixa</option>
+        </select>
+
+        <label for="setorDeDirecionamento">Setor de Direcionamento:</label>
+        <select id="setorDeDirecionamento" name="setorDeDirecionamento">
+
+            <option value="Administracao" th:selected="${ticket.setorDeDirecionamento == 'Administracao'}">
+                Administração
+            </option>
+
+            <option value="Recursos_Humanos" th:selected="${ticket.setorDeDirecionamento == 'Recursos_Humanos'}">
+                Recursos
+                Humanos
+            </option>
+
+            <option value="Financeiro" th:selected="${ticket.setorDeDirecionamento == 'Financeiro'}">Financeiro
+            </option>
+
+            <option value="Vendas" th:selected="${ticket.setorDeDirecionamento == 'Vendas'}">Vendas</option>
+            <option value="Marketing" th:selected="${ticket.setorDeDirecionamento == 'Marketing'}">Marketing
+            </option>
+
+            <option value="Producao" th:selected="${ticket.setorDeDirecionamento == 'Producao'}">Produção</option>
+            <option value="TI" th:selected="${ticket.setorDeDirecionamento == 'TI'}">Tecnologia da
+                Informação
+            </option>
+
+            <option value="Juridico" th:selected="${ticket.setorDeDirecionamento == 'Juridico'}">Jurídico</option>
+
+            <option value="Logistica" th:selected="${ticket.setorDeDirecionamento == 'Logistica'}">Logística
+            </option>
+        </select>
+
+        <button type="submit">Salvar</button>
+    </form>
+</main>
+</body>
+</html>

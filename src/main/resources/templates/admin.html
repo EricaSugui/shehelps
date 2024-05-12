@@ -36,8 +36,8 @@
         </div>
     </div>
 
-    <div >
-        <table >
+    <div>
+        <table>
             <tr>
                 <th>Nome</th>
                 <th>Descrição</th>
@@ -47,9 +47,13 @@
                 <td th:text="${item.nome}"></td>
                 <td th:text="${item.descricao}"></td>
                 <td th:text="${item.prioridade}"></td>
+                <td>
+                    <a th:href="@{'/edit-ticket/' + ${item.id}}">Editar</a>
+                </td>
             </tr>
         </table>
     </div>
+
     <h2> Filtro por prioridadeedade </h2>
     <form action="#" th:action="@{/admin}" th:object="${filtroPropriedade}">
         <select th:field="*{prioridade}">
@@ -62,9 +66,7 @@
     </form>
 
 
-    <!-- Tabela de Tickets -->
-    <table>
-        <!-- Cabeçalho da Tabela -->
+   <table>
         <thead>
         <tr>
             <th>Nome</th>
@@ -73,9 +75,7 @@
             <th>Status</th>
         </tr>
         </thead>
-        <!-- Corpo da Tabela -->
         <tbody>
-        <!-- Iterar sobre os tickets filtrados -->
         <tr th:each="ticket : ${ticketsFiltradosPrioridade}">
             <td th:text="${ticket.nome}"></td>
             <td th:text="${ticket.descricao}"></td>
@@ -84,7 +84,8 @@
         </tr>
         </tbody>
     </table>
-<h2> Filtro por Setor de Direcionamento </h2>
+
+    <h2> Filtro por Setor de Direcionamento </h2>
     <form action="#" th:action="@{/admin}" th:object="${filtroSetor}">
         <select th:field="*{setorDeDirecionamento}">
             <option value="">Todas</option>
@@ -102,7 +103,6 @@
     </form>
 
     <table>
-        <!-- Cabeçalho da Tabela -->
         <thead>
         <tr>
             <th>Nome</th>
@@ -111,9 +111,7 @@
             <th>Status</th>
         </tr>
         </thead>
-        <!-- Corpo da Tabela -->
         <tbody>
-        <!-- Iterar sobre os tickets filtrados -->
         <tr th:each="ticket : ${ticketsSetorDirecionamento}">
             <td th:text="${ticket.nome}"></td>
             <td th:text="${ticket.descricao}"></td>
