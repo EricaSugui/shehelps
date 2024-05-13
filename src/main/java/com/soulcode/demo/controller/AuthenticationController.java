@@ -36,7 +36,9 @@ public class AuthenticationController {
                                        @RequestParam String senha,
                                        @RequestParam String confirmacaoSenha,
                                        @RequestParam TypeUser tipoUsuario,
-                                       @RequestParam Sector setor) { // Corrigindo o nome do parâmetro para 'setor'
+                                       @RequestParam String setor) { // Corrigindo o nome do parâmetro para 'setor'
+
+        Sector sectorEnum = Sector.valueOf(setor);
 
         logger.debug("Recebido pedido de registro de novo usuário.");
 
@@ -56,7 +58,7 @@ public class AuthenticationController {
         }
 
         try {
-            autenticacaoService.registerNewUser(nome, email, senha, tipoUsuario, setor);
+            autenticacaoService.registerNewUser(nome, email, senha, tipoUsuario, sectorEnum);
             logger.info("Usuário registrado com sucesso: " + email);
             return ResponseEntity.ok("Usuário registrado com sucesso.");
         } catch (Exception e) {
@@ -88,6 +90,7 @@ public class AuthenticationController {
 
             session.setAttribute("nomeUsuario", usuario.getNome());
             session.setAttribute("setorUsuario", usuario.getSetor());
+            session.setAttribute("usuarioLogado", usuario);
 
             // Redirecionar com base no tipo de usuário
             switch (tipoUsuario) {

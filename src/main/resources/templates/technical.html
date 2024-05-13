@@ -28,7 +28,8 @@
           <th>Descrição</th>
           <th>Prioridade</th>
           <th>Nome</th>
-          <th>Setor</th>
+          <th>Setor do Técnico</th>
+          <th>Setor do Usuário</th>
           <th>Status</th>
         </tr>
         <tr th:each="item : ${items}">
@@ -37,6 +38,7 @@
           <td th:text="${item.prioridade}"></td>
           <td th:text="${item.nome}"></td>
           <td th:text="${item.setorDeDirecionamento}"></td>
+          <td th:text="${item.setor}"></td>
           <td th:text="${item.status}"></td>
 
         </tr>
@@ -50,7 +52,8 @@
           <th>Descrição</th>
           <th>Prioridade</th>
           <th>Nome</th>
-          <th>Setor</th>
+          <th>Setor do Técnico</th>
+          <th>Setor do Usuário</th>
           <th>Status</th>
         </tr>
         <tr th:each="aberto : ${abertos}">
@@ -59,6 +62,7 @@
           <td th:text="${aberto.prioridade}"></td>
           <td th:text="${aberto.nome}"></td>
           <td th:text="${aberto.setorDeDirecionamento}"></td>
+          <td th:text="${aberto.setor}"></td>
           <td th:text="${aberto.status}"></td>
 
         </tr>

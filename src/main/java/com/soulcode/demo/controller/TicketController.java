@@ -48,7 +48,7 @@ public class TicketController {
             HttpSession session) {
 
         String nomeUsuario = (String) session.getAttribute("nomeUsuario");
-        String setor = (String) session.getAttribute("setor");
+        Sector setor = (Sector) session.getAttribute("setor");
 
         ticketService.createTicket(descricao, prioridade, setorDeDirecionamento, nomeUsuario, setor);
         redirectAttributes.addAttribute("mensagem", "Chamado criado com sucesso!");

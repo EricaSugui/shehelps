@@ -19,7 +19,8 @@ public class Ticket {
     private String nome;
 
     @Column
-    private String setor;
+    @Enumerated(EnumType.STRING)
+    private Sector setor;
 
     @Column
     private String descricao;

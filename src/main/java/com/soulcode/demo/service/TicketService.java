@@ -21,7 +21,7 @@ public class TicketService {
         this.ticketRepository = ticketRepository;
     }
 
-    public void createTicket(String descricao, String prioridade, Sector setorDeDirecionamento, String nomeUsuario, String setor) {
+    public void createTicket(String descricao, String prioridade, Sector setorDeDirecionamento, String nomeUsuario, Sector setor) {
         Ticket ticket = new Ticket();
         ticket.setDescricao(descricao);
         ticket.setPrioridade(prioridade);
