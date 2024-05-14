@@ -1,7 +1,9 @@
 package com.soulcode.demo.controller;
 
+import com.soulcode.demo.models.Persona;
 import com.soulcode.demo.models.Status;
 import com.soulcode.demo.models.Ticket;
+import com.soulcode.demo.models.TypeUser;
 import com.soulcode.demo.service.TicketService;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
@@ -24,7 +26,12 @@ public class UserController {
 
 
     @GetMapping("/user")
-    public String mostrarFormularioChamado(Model model, Principal principal) {
+    public String mostrarFormularioChamado(Model model, Principal principal, HttpSession session) {
+        Persona usuario = (Persona) session.getAttribute("usuarioLogado");
+        if (usuario == null || usuario.getTipo().equals(TypeUser.USUARIO)) {
+            return "redirect:/login";
+        }
+
         logger.debug("Mostrando formulário de criação de chamado.");
         return "user";
     }
