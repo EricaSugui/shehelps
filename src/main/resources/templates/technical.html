@@ -9,14 +9,16 @@
 </head>
 <body>
 <main>
-    <h2>TELA DO TÉCNICO AQUI</h2>
-    <p>
-        ● Na tela do técnico, ele pode visualizar os chamados que estão disponíveis
-        para serem atendidos e os chamados que já estão atribuídos a ele.
-        ● Ao clicar em um chamado, o técnico pode visualizar as informações
-        detalhadas e modificar o status do chamado para "Aguardando técnico",
-        "Em atendimento", "Escalado para outro setor" ou "Finalizado".
-    </p>
+  <h2 style="white-space: nowrap;">
+    Bem-vindo (a), <span th:text="${usuarioNome}"></span>
+  </h2>
+  <p>
+    ● Na tela do técnico, ele pode visualizar os chamados que estão disponíveis
+    para serem atendidos e os chamados que já estão atribuídos a ele.
+    ● Ao clicar em um chamado, o técnico pode visualizar as informações
+    detalhadas e modificar o status do chamado para "Aguardando técnico",
+    "Em atendimento", "Escalado para outro setor" ou "Finalizado".
+  </p>
 
     </p>
     <div class="main flex-column">
