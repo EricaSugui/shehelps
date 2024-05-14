@@ -3,6 +3,7 @@ package com.soulcode.demo.controller;
 import com.soulcode.demo.models.*;
 import com.soulcode.demo.repositories.PersonaRepository;
 import com.soulcode.demo.repositories.TicketRepository;
+import com.soulcode.demo.service.TicketService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,23 +12,24 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.nio.file.FileStore;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @SessionAttributes("usuarioLogado")
 @Controller
 public class TechnicianController {
+    @Autowired
     TicketRepository ticketRepository;
 
     @Autowired
-    public TechnicianController(TicketRepository ticketRepository) {
-        this.ticketRepository = ticketRepository;
-    }
+    TicketService ticketService;
+
     @Autowired
     PersonaRepository personaRepository;
 
     @GetMapping("/technical")
-    public String telaTecnico(Model model, HttpSession session) {
+    public String telaTecnico(Model model, HttpSession session,@ModelAttribute("filtroSetor") Ticket filtroSetor) {
         Persona usuario = (Persona) session.getAttribute("usuarioLogado");
         if (usuario == null || usuario.getTipo().equals(TypeUser.USUARIO)) {
             return "redirect:/login";
@@ -36,17 +38,25 @@ public class TechnicianController {
         Sector setorDoUsuario = usuario.getSetor();
         model.addAttribute("usuario", usuario);
         model.addAttribute("setorDoUsuario", setorDoUsuario);
+        model.addAttribute("usuarioNome", usuario.getNome());
 
-        List<Ticket> ticketsAguardandoTecnico = ticketRepository.findByStatus(Status.Aguardando_técnico);
-        model.addAttribute("items", ticketsAguardandoTecnico);
+        List<Ticket> ticketsDoTecnico = ticketRepository.findByStatusIn(Arrays.asList(Status.Em_atendimento, Status.Finalizado));
 
-        List<Ticket> ticketsDoSetor = ticketsAguardandoTecnico.stream()
+        List<Ticket> ticketsDoSetor = ticketsDoTecnico.stream()
                 .filter(ticket -> ticket.getSetorDeDirecionamento() == setorDoUsuario)
                 .collect(Collectors.toList());
-        model.addAttribute("abertos", ticketsDoSetor);
+
+        model.addAttribute("items", ticketsDoSetor);
+
+        List<Ticket> ticketsAguardandoTecnico = ticketRepository.findByStatus(Status.Aguardando_técnico);
+
+        List<Ticket>ticketsAguardandoTecnicoDoSetor = ticketsAguardandoTecnico.stream()
+                .filter(ticket -> ticket.getSetorDeDirecionamento() == setorDoUsuario)
+                .collect(Collectors.toList());
+
+        model.addAttribute("abertos", ticketsAguardandoTecnicoDoSetor);
 
         return "technical";
-
 
     }
     
