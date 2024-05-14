@@ -1,80 +1,119 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{base :: layout (~{:: main})}" >
+<html lang="en" th:replace="~{base :: layout (~{:: main})}" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 <main>
-  <h2>
-    TELA DO TÉCNICO AQUI
-  </h2>
-  <p>
-    ● Na tela do técnico, ele pode visualizar os chamados que estão disponíveis
-    para serem atendidos e os chamados que já estão atribuídos a ele.
-    ● Ao clicar em um chamado, o técnico pode visualizar as informações
-    detalhadas e modificar o status do chamado para "Aguardando técnico",
-    "Em atendimento", "Escalado para outro setor" ou "Finalizado".
-  </p>
+    <h2 th:text="${usuarioNome}"></h2>
+    <h2>
+        TELA DO TÉCNICO AQUI
+    </h2>
+    <p>
+        ● Na tela do técnico, ele pode visualizar os chamados que estão disponíveis
+        para serem atendidos e os chamados que já estão atribuídos a ele.
+        ● Ao clicar em um chamado, o técnico pode visualizar as informações
+        detalhadas e modificar o status do chamado para "Aguardando técnico",
+        "Em atendimento", "Escalado para outro setor" ou "Finalizado".
+    </p>
 
-  </p>
-  <div class="main flex-column">
+    </p>
+    <div class="main flex-column">
 
-    <div><h1> Seus chamados: </h1></div>
-    <div class="custom-column">
-      <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-          <th>ID</th>
-          <th>Descrição</th>
-          <th>Prioridade</th>
-          <th>Nome</th>
-          <th>Setor do Técnico</th>
-          <th>Setor do Usuário</th>
-          <th>Status</th>
-        </tr>
-        </thead>
-        <tr th:each="item : ${items}">
-          <td th:text="${item.id}"></td>
-          <td th:text="${item.descricao}"></td>
-          <td th:text="${item.prioridade}"></td>
-          <td th:text="${item.nome}"></td>
-          <td th:text="${item.setorDeDirecionamento}"></td>
-          <td th:text="${item.setor}"></td>
-          <td th:text="${item.status}"></td>
+        <div><h1> Seus chamados: </h1></div>
+        <div class="custom-column">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titulo</th>
+                    <th>Prioridade</th>
+                    <th>Nome</th>
+                    <th>Setor do Técnico</th>
+                    <th>Setor do Usuário</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tr th:each="item : ${items}">
+                    <td th:text="${item.id}"></td>
+                    <td th:text="${item.tituloChamado}"></td>
+                    <td th:text="${item.prioridade}"></td>
+                    <td th:text="${item.nome}"></td>
+                    <td th:text="${item.setorDeDirecionamento}"></td>
+                    <td th:text="${item.setor}"></td>
+                    <td th:text="${item.status}"></td>
 
-        </tr>
-      </table>
-        <!-- Outros chamados seriam listados aqui -->
+                </tr>
+            </table>
+            <div><h1> Chamados disponíveis: </h1></div>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titulo</th>
+                    <th>Prioridade</th>
+                    <th>Nome</th>
+                    <th>Setor do Técnico</th>
+                    <th>Setor do Usuário</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tr th:each="aberto : ${abertos}">
+                    <td th:text="${aberto.id}"></td>
+                    <td th:text="${aberto.tituloChamado}"></td>
+                    <td th:text="${aberto.prioridade}"></td>
+                    <td th:text="${aberto.nome}"></td>
+                    <td th:text="${aberto.setorDeDirecionamento}"></td>
+                    <td th:text="${aberto.setor}"></td>
+                    <td th:text="${aberto.status}"></td>
+                    <td>
+                        <button type="button" class="simple-btn" data-toggle="modal" data-target="#modalDetalhesTicket">
+                            Ver detalhes
+                        </button>
+                    </td>
 
-        <div><h1> Chamados disponíveis: </h1></div>
-      <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-          <th>ID</th>
-          <th>Descrição</th>
-          <th>Prioridade</th>
-          <th>Nome</th>
-          <th>Setor do Técnico</th>
-          <th>Setor do Usuário</th>
-          <th>Status</th>
-        </tr>
-        </thead>
-        <tr th:each="aberto : ${abertos}">
-          <td th:text="${aberto.id}"></td>
-          <td th:text="${aberto.descricao}"></td>
-          <td th:text="${aberto.prioridade}"></td>
-          <td th:text="${aberto.nome}"></td>
-          <td th:text="${aberto.setorDeDirecionamento}"></td>
-          <td th:text="${aberto.setor}"></td>
-          <td th:text="${aberto.status}"></td>
+                </tr>
+            </table>
+        </div>
+        <div>
 
-        </tr>
-      </table>
+        </div>
+
+    </div>
+    <div class="modal fade" id="modalDetalhesTicket" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Título do Chamado</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p> Descrição: </p>
+                    <p> Status: </p>
+                    <p> Técnico:</p>
+                    <p> Setor responsável: </p>
+
+                    <label>Consdierações</label>
+                    <textarea id="respostaTecnico" name="respostaTecnico" rows="4" cols="50"></textarea><br>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="login-btn" data-dismiss="modal">Salvar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-
-  </div>
 </main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

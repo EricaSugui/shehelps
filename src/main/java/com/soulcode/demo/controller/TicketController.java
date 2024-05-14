@@ -40,6 +40,7 @@ public class TicketController {
 
     @PostMapping("/criar-chamado")
     public String criarChamado(
+            @RequestParam String tituloChamado,
             @RequestParam String descricao,
             @RequestParam String prioridade,
             @RequestParam Sector setorDeDirecionamento,
@@ -50,7 +51,7 @@ public class TicketController {
         String nomeUsuario = (String) session.getAttribute("nomeUsuario");
         Sector setor = (Sector) session.getAttribute("setor");
 
-        ticketService.createTicket(descricao, prioridade, setorDeDirecionamento, nomeUsuario, setor);
+        ticketService.createTicket(tituloChamado,descricao, prioridade, setorDeDirecionamento, nomeUsuario, setor);
         redirectAttributes.addAttribute("mensagem", "Chamado criado com sucesso!");
 
         return "redirect:/chamado";
