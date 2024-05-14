@@ -4,9 +4,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Title</title>
 </head>
 <body>
 <main>
@@ -84,20 +84,50 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel"
-                                            th:text="${aberto.tituloChamado}"></h5>
+                                            style="color: #1BB99A " th:text="${aberto.tituloChamado}"></h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p> Descrição: <span th:text="${aberto.descricao}"></span></p>
-                                        <p> Status:<span th:text="${aberto.status}"></span></p>
-                                        <p> Setor responsável: <span th:text="${aberto.setorDeDirecionamento}"></span>
-                                        </p>
 
-                                        <label>Consdierações do técnico: </label>
-                                        <textarea id="respostaTecnico" name="respostaTecnico" rows="4"
-                                                  cols="50"></textarea><br>
+                                        <div class="form-modal">
+                                            <p> Descrição </p>
+                                            <div th:text="${aberto.descricao}"></div>
+                                        </div>
+
+                                        <div class="form-modal">
+                                            <p for="status">Status</p>
+                                            <select id="status" name="status">
+                                                <option th:each="status : ${T(com.soulcode.demo.models.Status).values()}"
+                                                        th:value="${status}"
+                                                        th:selected="${aberto.status == status}">
+                                                    <span th:text="${#strings.replace(status, '_', ' ')}"></span>
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-modal">
+                                            <p for="setorDeDirecionamento"> Setor responsável </p>
+                                            <select id="setorDeDirecionamento"
+                                                    name="setorDeDirecionamento">
+
+                                                <option th:each="sector : ${T(com.soulcode.demo.models.Sector).values()}"
+                                                        th:value="${sector}"
+                                                        th:selected="${aberto.setorDeDirecionamento == sector}">
+                                                    <span th:text="${#strings.capitalize(sector.name().replace('_', ' '))}"></span>
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-modal">
+                                            <p for="respostaTecnico"> Comentário do Técnico </p>
+                                            <div class="form-floating">
+                                            <textarea class="form-control" placeholder="Comentário do técnico"
+                                                      id="floatingTextarea"></textarea>
+                                            </div>
+                                        </div>
+
                                     </div>
                                     <div class="modal-footer">
                                         <button type="submit" class="login-btn" data-dismiss="modal">Salvar</button>
