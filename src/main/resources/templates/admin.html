@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
 </head>
 <body>
+
 <main>
     <h2>
         PAINEL DO ADMIN AQUI
@@ -19,30 +21,32 @@
     </p>
 
     <h1> Chamados criados </h1>
-    <div style="display: flex ; flex-direction: row; gap: 20px">
-        <div>
-            <p>Total de chamados Em aberto: </p>
+    <div style="display: flex ; flex-direction: row; justify-content: space-around; gap: 20px">
+        <div class="tickets open">
+            <p>Em aberto: </p>
             <p th:text="${contagemStatusEmAberto}"></p>
         </div>
 
-        <div>
-            <p>Total de chamados Em atendimento: </p>
+        <div class="tickets doing">
+            <p>Em atendimento: </p>
             <p th:text="${contagemStatusEmAtendimento}"></p>
         </div>
 
-        <div>
-            <p>Total de chamados Em finalizado: </p>
+        <div class="tickets done">
+            <p>Finalizado: </p>
             <p th:text="${contagemStatusFinalizado}"></p>
         </div>
     </div>
 
-    <div>
+<!--    <div>-->
         <table>
+            <thead>
             <tr>
                 <th>Nome</th>
                 <th>Descrição</th>
-                <th>Status</th>
+                <th colspan="2">Status</th>
             </tr>
+            </thead>
             <tr th:each="item : ${items}">
                 <td th:text="${item.nome}"></td>
                 <td th:text="${item.descricao}"></td>
@@ -52,9 +56,9 @@
                 </td>
             </tr>
         </table>
-    </div>
+<!--    </div>-->
 
-    <h2> Filtro por prioridadeedade </h2>
+    <h2> Filtro por prioridade </h2>
     <form action="#" th:action="@{/admin}" th:object="${filtroPropriedade}">
         <select th:field="*{prioridade}">
             <option value="">Todas</option>
@@ -120,6 +124,23 @@
         </tr>
         </tbody>
     </table>
+    <script>
+        $('.toast').toast('show');
+    </script>
+    <div th:if="${param.mensagem}">
+        <div class="toast ml-auto" role="alert" aria-live="assertive" aria-atomic="true"  data-delay="1000" data-autohide="true" >
+        <div class="toast-header">
+            <img src="/assets/operator_64.png" class="rounded mr-2" alt="...">
+            <strong class="mr-auto">SheHelps</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            <p th:text="${param.mensagem }"></p>
+        </div>
+    </div>
+    </div>
 </main>
 </body>
 </html>
