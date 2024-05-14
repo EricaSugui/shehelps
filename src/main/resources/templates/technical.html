@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{base :: layout (~{:: main})}" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" th:replace="~{base :: layout (~{:: main})}" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:https="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -9,18 +10,17 @@
 </head>
 <body>
 <main>
-  <h2 style="white-space: nowrap;">
-    Bem-vindo (a), <span th:text="${usuarioNome}"></span>
-  </h2>
-  <p>
-    ● Na tela do técnico, ele pode visualizar os chamados que estão disponíveis
-    para serem atendidos e os chamados que já estão atribuídos a ele.
-    ● Ao clicar em um chamado, o técnico pode visualizar as informações
-    detalhadas e modificar o status do chamado para "Aguardando técnico",
-    "Em atendimento", "Escalado para outro setor" ou "Finalizado".
-  </p>
-
+    <h2 style="white-space: nowrap;">
+        Bem-vindo (a), <span th:text="${usuarioNome}"></span>
+    </h2>
+    <p>
+        ● Na tela do técnico, ele pode visualizar os chamados que estão disponíveis
+        para serem atendidos e os chamados que já estão atribuídos a ele.
+        ● Ao clicar em um chamado, o técnico pode visualizar as informações
+        detalhadas e modificar o status do chamado para "Aguardando técnico",
+        "Em atendimento", "Escalado para outro setor" ou "Finalizado".
     </p>
+
     <div class="main flex-column">
 
         <div><h1> Seus chamados: </h1></div>
@@ -71,47 +71,53 @@
                     <td th:text="${aberto.setor}"></td>
                     <td th:text="${aberto.status}"></td>
                     <td>
-                        <button type="button" class="simple-btn" data-toggle="modal" data-target="#modalDetalhesTicket">
+                        <button type="button" class="simple-btn" data-toggle="modal" data-target="#modalDetalhesTicket"
+                                th:attrappend="data-target=${aberto.id}">
                             Ver detalhes
                         </button>
+                        <div class=" modal fade " th:attrappend="id=${aberto.id}" id="modalDetalhesTicket" tabindex="-1"
+                             role="dialog"
+                             aria-labelledby="exampleModalLabel"
+
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"
+                                            th:text="${aberto.tituloChamado}"></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p> Descrição: <span th:text="${aberto.descricao}"></span></p>
+                                        <p> Status:<span th:text="${aberto.status}"></span></p>
+                                        <p> Setor responsável: <span th:text="${aberto.setorDeDirecionamento}"></span>
+                                        </p>
+
+                                        <label>Consdierações do técnico: </label>
+                                        <textarea id="respostaTecnico" name="respostaTecnico" rows="4"
+                                                  cols="50"></textarea><br>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="login-btn" data-dismiss="modal">Salvar</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
 
                 </tr>
             </table>
         </div>
-        <div>
-
-        </div>
-
     </div>
-    <div class="modal fade" id="modalDetalhesTicket" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Título do Chamado</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p> Descrição: </p>
-                    <p> Status: </p>
-                    <p> Técnico:</p>
-                    <p> Setor responsável: </p>
 
-                    <label>Consdierações</label>
-                    <textarea id="respostaTecnico" name="respostaTecnico" rows="4" cols="50"></textarea><br>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="login-btn" data-dismiss="modal">Salvar</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 </main>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src=" https:
+                        //ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
