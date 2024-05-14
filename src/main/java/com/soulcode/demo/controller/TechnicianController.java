@@ -1,14 +1,14 @@
 package com.soulcode.demo.controller;
 
 import com.soulcode.demo.models.*;
+import com.soulcode.demo.repositories.PersonaRepository;
 import com.soulcode.demo.repositories.TicketRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.nio.file.FileStore;
 import java.util.List;
@@ -23,6 +23,9 @@ public class TechnicianController {
     public TechnicianController(TicketRepository ticketRepository) {
         this.ticketRepository = ticketRepository;
     }
+    @Autowired
+    PersonaRepository personaRepository;
+
     @GetMapping("/technical")
     public String telaTecnico(Model model, HttpSession session) {
         Persona usuario = (Persona) session.getAttribute("usuarioLogado");
@@ -45,35 +48,26 @@ public class TechnicianController {
         return "technical";
 
 
-//        Sector setorDoUsuario;
-//        if (usuario != null) {
-//            model.addAttribute("usuario", usuario);
-//
-//            // Obtém o setor do usuário e adiciona ao modelo
-//            setorDoUsuario = usuario.getSetor();
-//            model.addAttribute("setorDoUsuario", setorDoUsuario);
-//
-////            return "technical";
-//        } else {
-//            return "redirect:/login";
-//        }
-//
-//// HttpSession session  Persona usuarioLogado = (Persona) session.getAttribute("usuarioLogado");
-//
-//        List<Ticket> items = ticketRepository.findByStatus(Status.valueOf("Aguardando_técnico"));
-//        model.addAttribute("items", items);
-////// Localiza pelo setor
-////        List<Ticket> abertos = ticketRepository.findBySetorDeDirecionamento(Sector.TI);
-////        model.addAttribute("abertos", abertos);
-//
-//        // Filtra os chamados pelo setor do usuário
-//        List<Ticket> abertos = items.stream()
-//                .filter(ticket -> ticket.getSetorDeDirecionamento() == setorDoUsuario)
-//                .collect(Collectors.toList());
-//
-//        // Adiciona os chamados filtrados ao modelo
-//        model.addAttribute("abertos", abertos);
-//        return "technical";
     }
+    
+    @PostMapping("/technical")
+    public String tratarChamado(@RequestParam("id")Long id, @ModelAttribute("ticket") Ticket ticket, RedirectAttributes redirectAttributes){
+        Ticket chamado = ticketRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("ID de chamado inválido: " + id));
+
+
+        ticketRepository.save(chamado);
+        redirectAttributes.addAttribute("mensagem", "Chamado atualizado com sucesso!");
+        return "/technical";
+    }
+
+    private void orElseThrow(Object o) {
+    }
+
+    @GetMapping("/technical-teste")
+    public List<Persona> getTecnicos() {
+        return personaRepository.findAll();
+    }
+
 
 }

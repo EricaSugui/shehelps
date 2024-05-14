@@ -22,7 +22,7 @@ public class Persona {
     @Column
     private String Senha;
 
-    @Setter
+
     @Column
     @Enumerated(EnumType.STRING)
     private TypeUser Tipo;
