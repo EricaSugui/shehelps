@@ -23,7 +23,13 @@ public class Ticket {
     private Sector setor;
 
     @Column
+    private String tituloChamado;
+
+    @Column
     private String descricao;
+
+    @Column
+    private String respostaTecnico;
 
     @Column
     private String prioridade;

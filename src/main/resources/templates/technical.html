@@ -1,78 +1,154 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{base :: layout (~{:: main})}" >
+<html lang="en" th:replace="~{base :: layout (~{:: main})}" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:https="http://www.w3.org/1999/xhtml">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
+    <meta charset="UTF-8">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Title</title>
 </head>
 <body>
 <main>
-  <h2 style="white-space: nowrap;">
-    Bem-vindo (a), <span th:text="${usuarioNome}"></span>
-  </h2>
-  <p>
-    ● Na tela do técnico, ele pode visualizar os chamados que estão disponíveis
-    para serem atendidos e os chamados que já estão atribuídos a ele.
-    ● Ao clicar em um chamado, o técnico pode visualizar as informações
-    detalhadas e modificar o status do chamado para "Aguardando técnico",
-    "Em atendimento", "Escalado para outro setor" ou "Finalizado".
-  </p>
+    <h2 style="white-space: nowrap;">
+        Bem-vindo (a), <span th:text="${usuarioNome}"></span>
+    </h2>
+    <p>
+        ● Na tela do técnico, ele pode visualizar os chamados que estão disponíveis
+        para serem atendidos e os chamados que já estão atribuídos a ele.
+        ● Ao clicar em um chamado, o técnico pode visualizar as informações
+        detalhadas e modificar o status do chamado para "Aguardando técnico",
+        "Em atendimento", "Escalado para outro setor" ou "Finalizado".
+    </p>
 
-  </p>
-  <div class="main flex-column">
+    <div class="main flex-column">
 
-    <div><h1> Seus chamados: </h1></div>
-    <div class="custom-column">
-      <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-          <th>ID</th>
-          <th>Título</th>
-          <th>Prioridade</th>
-          <th>Nome</th>
-          <th>Setor do Técnico</th>
-          <th>Status</th>
+        <div><h1> Seus chamados: </h1></div>
+        <div class="custom-column">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titulo</th>
+                    <th>Prioridade</th>
+                    <th>Nome</th>
+                    <th>Setor do Técnico</th>
+                    <th>Setor do Usuário</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tr th:each="item : ${items}">
+                    <td th:text="${item.id}"></td>
+                    <td th:text="${item.tituloChamado}"></td>
+                    <td th:text="${item.prioridade}"></td>
+                    <td th:text="${item.nome}"></td>
+                    <td th:text="${item.setorDeDirecionamento}"></td>
+                    <td th:text="${item.setor}"></td>
+                    <td th:text="${item.status}"></td>
 
-        </tr>
-        </thead>
-        <tr th:each="item : ${items}">
-          <td th:text="${item.id}"></td>
-          <td></td>
-<!--          <td th:text="${item.titulo}"></td>-->
-          <td th:text="${item.prioridade}"></td>
-          <td th:text="${item.nome}"></td>
-          <td th:text="${item.setorDeDirecionamento}"></td>
-          <td th:text="${item.status}"></td>
-        </tr>
-      </table>
-        <!-- Outros chamados seriam listados aqui -->
+                </tr>
+            </table>
+            <div><h1> Chamados disponíveis: </h1></div>
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titulo</th>
+                    <th>Prioridade</th>
+                    <th>Nome</th>
+                    <th>Setor do Técnico</th>
+                    <th>Setor do Usuário</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tr th:each="aberto : ${abertos}">
+                    <td th:text="${aberto.id}"></td>
+                    <td th:text="${aberto.tituloChamado}"></td>
+                    <td th:text="${aberto.prioridade}"></td>
+                    <td th:text="${aberto.nome}"></td>
+                    <td th:text="${aberto.setorDeDirecionamento}"></td>
+                    <td th:text="${aberto.setor}"></td>
+                    <td th:text="${aberto.status}"></td>
+                    <td>
+                        <button type="button" class="simple-btn" data-toggle="modal" data-target="#modalDetalhesTicket"
+                                th:attrappend="data-target=${aberto.id}">
+                            Ver detalhes
+                        </button>
+                        <div class=" modal fade " th:attrappend="id=${aberto.id}" id="modalDetalhesTicket" tabindex="-1"
+                             role="dialog"
+                             aria-labelledby="exampleModalLabel"
 
-        <div><h1> Chamados disponíveis: </h1></div>
-      <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-          <th>ID</th>
-          <th>Descrição</th>
-          <th>Prioridade</th>
-          <th>Nome</th>
-          <th>Setor do Técnico</th>
-          <th>Status</th>
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"
+                                            style="color: #1BB99A " th:text="${aberto.tituloChamado}"></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
 
-        </tr>
-        </thead>
-        <tr th:each="aberto : ${abertos}">
-          <td th:text="${aberto.id}"></td>
-          <td th:text="${aberto.descricao}"></td>
-          <td th:text="${aberto.prioridade}"></td>
-          <td th:text="${aberto.nome}"></td>
-          <td th:text="${aberto.setorDeDirecionamento}"></td>
-          <td th:text="${aberto.status}"></td>
+                                        <div class="form-modal">
+                                            <p> Descrição </p>
+                                            <div th:text="${aberto.descricao}"></div>
+                                        </div>
 
-        </tr>
-      </table>
+                                        <div class="form-modal">
+                                            <p for="status">Status</p>
+                                            <select id="status" name="status">
+                                                <option th:each="status : ${T(com.soulcode.demo.models.Status).values()}"
+                                                        th:value="${status}"
+                                                        th:selected="${aberto.status == status}">
+                                                    <span th:text="${#strings.replace(status, '_', ' ')}"></span>
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-modal">
+                                            <p for="setorDeDirecionamento"> Setor responsável </p>
+                                            <select id="setorDeDirecionamento"
+                                                    name="setorDeDirecionamento">
+
+                                                <option th:each="sector : ${T(com.soulcode.demo.models.Sector).values()}"
+                                                        th:value="${sector}"
+                                                        th:selected="${aberto.setorDeDirecionamento == sector}">
+                                                    <span th:text="${#strings.capitalize(sector.name().replace('_', ' '))}"></span>
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-modal">
+                                            <p for="respostaTecnico"> Comentário do Técnico </p>
+                                            <div class="form-floating">
+                                            <textarea class="form-control" placeholder="Comentário do técnico"
+                                                      id="floatingTextarea"></textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="login-btn" data-dismiss="modal">Salvar</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
     </div>
 
 
-  </div>
 </main>
+<script src=" https:
+                        //ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
