@@ -2,25 +2,54 @@
 <html lang="en" th:replace="~{base :: layout (~{:: main})}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Painel do Usuário</title>
 </head>
 <body>
 <main>
-    <h2>
-        TELA DO USUÁRIO AQUI
-    </h2>
-    <p>
-        Na tela do usuário (aparece o dados do usuário logado em algum local), ele pode
-        visualizar os chamados que criou anteriormente e criar novos chamados.
-        ○ Os chamados devem ser cadastrados no banco de dados.
-        ○ Os campos necessários para cadastro deve ser pensado pelo grupo ( quanto mais
-        completo melhor)
+    <h1>Bem-vindo ao Painel do Usuário</h1>
 
-        ● Os chamados criados por ele exibe informações como usuário, setor, descrição,
-        prioridade e data de início. (e outras também).
-        ● Ao criar um novo chamado, o usuário preenche os campos necessários e envia os
-        dados.
-    </p>
+    <!-- Formulário de filtro de chamados -->
+    <form action="/user-dashboard" method="GET">
+        <label for="status">Filtrar por status:</label>
+        <select name="status" id="status">
+            <option value="">Todos</option>
+            <option value="Aguardando_técnico">Aguardando técnico</option>
+            <option value="Em_atendimento">Em atendimento</option>
+            <option value="Escalado_para_outro_setor">Escalado para outro setor</option>
+            <option value="Finalizado">Finalizado</option>
+        </select>
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <!-- Tabela de chamados -->
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Descrição</th>
+            <th>Prioridade</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ticket : ${tickets}">
+            <td th:text="${ticket.id}"></td>
+            <td th:text="${ticket.descricao}"></td>
+            <td th:text="${ticket.prioridade}"></td>
+            <td th:text="${ticket.status}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Botão para editar chamados aguardando técnico -->
+    <a href="/user-tickets">
+        <button>Editar Chamados</button>
+    </a>
+
+    <!-- Botão para criar um novo chamado -->
+    <a href="/chamado">
+        <button>Criar Chamado</button>
+    </a>
 </main>
 </body>
 </html>

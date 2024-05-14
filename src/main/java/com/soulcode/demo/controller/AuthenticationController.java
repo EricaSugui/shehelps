@@ -91,11 +91,12 @@ public class AuthenticationController {
             session.setAttribute("nomeUsuario", usuario.getNome());
             session.setAttribute("setorUsuario", usuario.getSetor());
             session.setAttribute("usuarioLogado", usuario);
+            session.setAttribute("email", loginEmail);
 
             // Redirecionar com base no tipo de usuário
             switch (tipoUsuario) {
                 case USUARIO:
-                    return new RedirectView("/chamado");
+                    return new RedirectView("/user");
                 case ADMINISTRADOR:
                     return new RedirectView("/admin");
                 case TECNICO:

@@ -19,6 +19,9 @@ public class Ticket {
     private String nome;
 
     @Column
+    private String email;
+
+    @Column
     @Enumerated(EnumType.STRING)
     private Sector setor;
 

@@ -21,7 +21,7 @@ public class TicketService {
         this.ticketRepository = ticketRepository;
     }
 
-    public void createTicket(String tituloChamado, String descricao, String prioridade, Sector setorDeDirecionamento, String nomeUsuario, Sector setor) {
+    public void createTicket(String tituloChamado, String descricao, String prioridade, Sector setorDeDirecionamento, String nomeUsuario, Sector setor, String email) {
         Ticket ticket = new Ticket();
         ticket.setTituloChamado(tituloChamado);
         ticket.setDescricao(descricao);
@@ -31,6 +31,7 @@ public class TicketService {
         ticket.setStatus(Status.Aguardando_técnico);
         ticket.setNome(nomeUsuario);
         ticket.setSetor(setor);
+        ticket.setEmail(email);
 
         ticketRepository.save(ticket);
     }
@@ -49,6 +50,19 @@ public class TicketService {
         } else {
             return ticketRepository.findAll();
         }
+    }
+
+    public List<Ticket> getTicketsByEmail(String email) {
+        return ticketRepository.findByEmail(email);
+    }
+
+    public List<Ticket> getTicketsByEmailAndStatus(String email, Status status) {
+        // Busca os chamados pelo email do usuário e pelo status especificado
+        return ticketRepository.findByEmailAndStatus(email, status);
+    }
+
+    public List<Ticket> getTicketsByStatus(Status status) {
+        return ticketRepository.findByStatus(status);
     }
 
 }

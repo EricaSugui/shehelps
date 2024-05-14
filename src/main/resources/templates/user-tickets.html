@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: layout (~{:: main})}" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Chamados Aguardando Técnico</title>
+</head>
+<body>
+<main>
+    <h1>Chamados Aguardando Técnico</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Descrição</th>
+            <th>Prioridade</th>
+            <th>Status</th>
+            <th>Ação</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Loop sobre os chamados aguardando técnico -->
+        <tr th:each="ticket : ${tickets}">
+            <td th:text="${ticket.id}"></td>
+            <td th:text="${ticket.descricao}"></td>
+            <td th:text="${ticket.prioridade}"></td>
+            <td th:text="${ticket.status}"></td>
+            <td>
+                <!-- Link para editar o chamado -->
+                <a th:href="@{'/edit-user-ticket/' + ${ticket.id}}">Editar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

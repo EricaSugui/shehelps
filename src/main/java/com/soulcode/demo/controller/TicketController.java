@@ -3,6 +3,7 @@ package com.soulcode.demo.controller;
 import com.soulcode.demo.dto.TicketDTO;
 import com.soulcode.demo.models.Persona;
 import com.soulcode.demo.models.Sector;
+import com.soulcode.demo.models.Status;
 import com.soulcode.demo.models.Ticket;
 import com.soulcode.demo.repositories.TicketRepository;
 import com.soulcode.demo.repositories.TypeRepository;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
+import java.util.List;
 
 
 @Controller
@@ -49,12 +51,13 @@ public class TicketController {
             HttpSession session) {
 
         String nomeUsuario = (String) session.getAttribute("nomeUsuario");
+        String email = (String) session.getAttribute("email");
         Sector setor = (Sector) session.getAttribute("setor");
 
-        ticketService.createTicket(tituloChamado,descricao, prioridade, setorDeDirecionamento, nomeUsuario, setor);
+        ticketService.createTicket(tituloChamado,descricao, prioridade, setorDeDirecionamento, nomeUsuario, setor, email);
         redirectAttributes.addAttribute("mensagem", "Chamado criado com sucesso!");
 
-        return "redirect:/chamado";
+        return "redirect:/user-dashboard";
     }
 
     @GetMapping("/edit-ticket/{id}")
@@ -78,6 +81,41 @@ public class TicketController {
 
         redirectAttributes.addAttribute("mensagem", "Chamado atualizado com sucesso!");
         return "redirect:/admin";
+    }
+
+    @GetMapping("/user-tickets")
+    public String userAwaitingTechnicianTickets(Model model, Principal principal, HttpSession session ) {
+
+        String email = (String) session.getAttribute("email");
+
+        List<Ticket> awaitingTechnicianTickets = ticketService.getTicketsByEmailAndStatus(email, Status.Aguardando_técnico);
+
+        model.addAttribute("tickets", awaitingTechnicianTickets);
+
+        return "user-tickets";
+    }
+
+    @GetMapping("/edit-user-ticket/{id}")
+    public String editUserAwaitingTechnicianTicket(@PathVariable("id") Long id, Model model) {
+        Ticket ticket = ticketRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("ID de chamado inválido: " + id));
+        model.addAttribute("ticket", ticket);
+        return "edit-user-ticket";
+    }
+
+    @PostMapping("/edit-user-tickets")
+    public String updateUserAwaitingTechnicianTicket(@RequestParam("id") Long id, @ModelAttribute("ticket") Ticket ticket, RedirectAttributes redirectAttributes) {
+        Ticket existingTicket = ticketRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("ID de chamado inválido: " + id));
+
+        existingTicket.setDescricao(ticket.getDescricao());
+        existingTicket.setPrioridade(ticket.getPrioridade());
+        existingTicket.setSetorDeDirecionamento(ticket.getSetorDeDirecionamento());
+
+        ticketRepository.save(existingTicket);
+
+        redirectAttributes.addAttribute("mensagem", "Chamado atualizado com sucesso!");
+        return "redirect:/user-tickets";
     }
 }
 
