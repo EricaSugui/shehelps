@@ -1,6 +1,9 @@
 package com.soulcode.demo.controller;
 
 
+import com.soulcode.demo.models.Persona;
+import com.soulcode.demo.models.Sector;
+import com.soulcode.demo.models.Status;
 import com.soulcode.demo.models.Ticket;
 import com.soulcode.demo.repositories.PersonaRepository;
 import com.soulcode.demo.repositories.TicketRepository;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.soulcode.demo.models.Status.*;
 
@@ -33,8 +37,14 @@ public class AdmController {
                                 @ModelAttribute("filtroPropriedade") Ticket filtroPropriedade,
                                 @ModelAttribute("filtroSetor") Ticket filtroSetor) {
 
-//        Persona usuarioLogado = (Persona) session.getAttribute("usuarioLogado");
-//        if (usuarioLogado != null && "ADMINISTRADOR".equals(usuarioLogado.getTipo())) {
+        Persona usuario = (Persona) session.getAttribute("usuarioLogado");
+        if (usuario == null) {
+            return "redirect:/login";
+        }
+
+        Sector setorDoUsuario = usuario.getSetor();
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("setorDoUsuario", setorDoUsuario);
 
         List<Ticket> items = ticketRepository.findAll();
         model.addAttribute("items", items);
@@ -58,8 +68,6 @@ public class AdmController {
         model.addAttribute("ticketsSetorDirecionamento", ticketsSetorDirecionamento);
 
         return "admin";
-
-
     }
 
 }
