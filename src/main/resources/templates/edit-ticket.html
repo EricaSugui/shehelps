@@ -27,30 +27,10 @@
         <label for="setorDeDirecionamento">Setor de Direcionamento:</label>
         <select id="setorDeDirecionamento" name="setorDeDirecionamento" >
 
-            <option th:value="${Administracao}" th:selected="${ticket.setorDeDirecionamento == 'Administracao'}">
-                Administração
-            </option>
-
-            <option th:value="${Recursos_Humanos}" th:selected="${ticket.setorDeDirecionamento == 'Recursos_Humanos'}">
-                Recursos
-                Humanos
-            </option>
-
-            <option th:value="${Financeiro}" th:selected="${ticket.setorDeDirecionamento == 'Financeiro'}">Financeiro
-            </option>
-
-            <option th:value="${Vendas}" th:selected="${ticket.setorDeDirecionamento == 'Vendas'}">Vendas</option>
-            <option th:value="${Marketing}" th:selected="${ticket.setorDeDirecionamento == 'Marketing'}">Marketing
-            </option>
-
-            <option th:value="${Producao}" th:selected="${ticket.setorDeDirecionamento == 'Producao'}">Produção</option>
-            <option th:value="${TI}" th:selected="${ticket.setorDeDirecionamento == 'TI'}">Tecnologia da
-                Informação
-            </option>
-
-            <option th:value="${Juridico}" th:selected="${ticket.setorDeDirecionamento == 'Juridico'}">Jurídico</option>
-
-            <option th:value="${Logistica}" th:selected="${ticket.setorDeDirecionamento == 'Logistica'}">Logística
+            <option th:each="sector : ${T(com.soulcode.demo.models.Sector).values()}"
+                    th:value="${sector}"
+                    th:selected="${ticket.setorDeDirecionamento == sector}">
+                <span th:text="${#strings.capitalize(sector.name().replace('_', ' '))}"></span>
             </option>
         </select>
 
