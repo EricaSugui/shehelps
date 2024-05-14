@@ -1,7 +1,10 @@
 package com.soulcode.demo.controller;
 
 import com.soulcode.demo.dto.TicketDTO;
-import com.soulcode.demo.models.*;
+import com.soulcode.demo.models.Persona;
+import com.soulcode.demo.models.Sector;
+import com.soulcode.demo.models.Status;
+import com.soulcode.demo.models.Ticket;
 import com.soulcode.demo.repositories.TicketRepository;
 import com.soulcode.demo.repositories.TypeRepository;
 import com.soulcode.demo.service.TicketService;
@@ -32,11 +35,7 @@ public class TicketController {
     }
 
     @GetMapping("/chamado")
-    public String mostrarFormularioChamado(Model model, Principal principal, HttpSession session) {
-        Persona usuario = (Persona) session.getAttribute("usuarioLogado");
-        if (usuario == null || usuario.getTipo().equals(TypeUser.USUARIO)) {
-            return "redirect:/login";
-        }
+    public String mostrarFormularioChamado(Model model, Principal principal) {
 
         return "ticket";
     }
