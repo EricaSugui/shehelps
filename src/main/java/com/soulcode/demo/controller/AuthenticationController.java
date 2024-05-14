@@ -79,7 +79,7 @@ public class AuthenticationController {
 
         if (loginEmail.isEmpty() || loginSenha.isEmpty()) {
             logger.error("Email e senha são obrigatórios.");
-            return new RedirectView("/login?error=true");
+            return new RedirectView("/login?error=Email e senha sao obrigatorios.");
         }
 
         Persona usuario = typeRepository.findByEmailAndTipoUsuario(loginEmail, tipoUsuario);
@@ -102,11 +102,11 @@ public class AuthenticationController {
                     return new RedirectView("/technical");
                 default:
                     logger.error("Tipo de usuário inválido.");
-                    return new RedirectView("/login?error=true");
+                    return new RedirectView("/login?error=Tipo de usuário invalido.");
             }
         } else {
             logger.error("Credenciais inválidas.");
-            return new RedirectView("/login?error=true");
+            return new RedirectView("/login?error=Credenciais invalidas.");
         }
     }
 }
