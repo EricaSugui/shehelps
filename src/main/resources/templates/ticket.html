@@ -18,49 +18,46 @@
     </p>
     <form class="editForm" action="/criar-chamado" method="post">
         <div class="editItems">
-        <label for="tituloChamado">Titulo:</label>
-        <input id="tituloChamado" name="tituloChamado"></input>
+            <label for="tituloChamado">Titulo:</label>
+            <input id="tituloChamado" name="tituloChamado"></input>
         </div>
         <div class="editItems">
-        <label for="descricao">Descrição:</label>
-        <textarea id="descricao" name="descricao" rows="4" cols="50"></textarea>
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" rows="4" cols="50"></textarea>
         </div>
         <div class="editItems">
-        <label for="prioridade">Prioridade:</label>
-        <select id="prioridade" name="prioridade">
-            <option value="baixa">Baixa</option>
-            <option value="média">Média</option>
-            <option value="alta">Alta</option>
-        </select>
+            <label for="prioridade">Prioridade:</label>
+            <select id="prioridade" name="prioridade">
+                <option value="Baixa">Baixa</option>
+                <option value="Média">Média</option>
+                <option value="Alta">Alta</option>
+            </select>
         </div>
 
         <div class="editItems">
-        <label for="setorDeDirecionamento">Setor de Direcionamento:</label>
-        <select id="setorDeDirecionamento" name="setorDeDirecionamento">
-            <option value="">--Selecione o setor do chamado--</option>
-            <option value="Administracao">Administração</option>
-            <option value="Recursos_Humanos">Recursos Humanos</option>
-            <option value="Financeiro">Financeiro</option>
-            <option value="Vendas">Vendas</option>
-            <option value="Marketing">Marketing</option>
-            <option value="Producao">Produção</option>
-            <option value="TI">Tecnologia da Informação</option>
-            <option value="Juridico">Jurídico</option>
-            <option value="Logistica">Logística</option>
-        </select>
+            <div class="form-modal">
+                <label for="setorDeDirecionamento"> Setor responsável </label>
+                <select id="setorDeDirecionamento" name="setorDeDirecionamento">
+                    <option th:each="setorDeDirecionamento : ${T(com.soulcode.demo.models.Sector).values()}"
+                            th:value="${setorDeDirecionamento}"
+                    >
+                        <span th:text="${#strings.capitalize(setorDeDirecionamento.name().replace('_', ' '))}"></span>
+                    </option>
+                </select>
+            </div>
+
+            <!-- Adicionando campos ocultos para armazenar as informações do usuário -->
+            <input type="hidden" id="usuario" name="usuario" th:value="${param.usuario}">
+            <input type="hidden" id="setor" name="setor" th:value="${param.setor}">
+
+            <div th:if="${param.mensagem}">
+                <script th:inline="javascript">
+                    alert([[${param.mensagem}]]);
+                </script>
+            </div>
+
+            <button class="simple-btn" type="submit">Criar Chamado</button>
         </div>
-
-        <!-- Adicionando campos ocultos para armazenar as informações do usuário -->
-        <input type="hidden" id="usuario" name="usuario" th:value="${param.usuario}">
-        <input type="hidden" id="setor" name="setor" th:value="${param.setor}">
-
-        <div th:if="${param.mensagem}">
-            <script th:inline="javascript">
-                alert([[${param.mensagem}]]);
-            </script>
-        </div>
-
-        <button class="simple-btn" type="submit">Criar Chamado</button>
     </form>
 </main>
 

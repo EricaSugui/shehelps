@@ -71,19 +71,27 @@ public class AdmController {
     }
 
     @PostMapping("/admin")
-    public String tratarChamado(@RequestParam("id")Long id, @ModelAttribute("ticket") Ticket aberto, HttpSession session,RedirectAttributes redirectAttributes){
+    public String tratarChamado(@RequestParam("id") Long id, @ModelAttribute("ticket") Ticket aberto, HttpSession session, RedirectAttributes redirectAttributes) {
         Ticket chamado = ticketRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("ID de chamado inválido: " + id));
 
-        chamado.setStatus(aberto.getStatus());
+
+        if (!aberto.getSetorDeDirecionamento().equals(chamado.getSetorDeDirecionamento()) &&
+                aberto.getStatus().equals(chamado.getStatus())) {
+            chamado.setStatus(Escalado_para_outro_setor);
+        } else {
+            chamado.setStatus(aberto.getStatus());
+        }
+
         chamado.setSetorDeDirecionamento(aberto.getSetorDeDirecionamento());
         chamado.setPrioridade(aberto.getPrioridade());
 
         ticketRepository.save(chamado);
         redirectAttributes.addAttribute("mensagem", "Chamado atualizado com sucesso!");
 
-
         return "redirect:/admin";
     }
+
+
 
 }
