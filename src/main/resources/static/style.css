@@ -32,7 +32,7 @@ header {
     gap: 1.5rem;
     list-style: none;
 }
-h1 {
+h1, h2, h3, h4, h5, h6 {
     color: #1BB99A;
 }
 button {
@@ -44,19 +44,13 @@ button {
     border-radius: 3px;
 }
 
-input{
-   padding: 4px 8px;
-   border-radius: 4px;
-   border: solid 1px #1BB99A;
-}
-
 label{
     margin: 4px 0 8px 0;
     color: #1BB99A;
     font-size: large;
 }
 
-select{
+select, textarea, input {
    width: 215px;
    padding: 4px 8px;
    border-radius: 4px;
@@ -165,6 +159,27 @@ tbody > tr:nth-child(odd) {
 thead{
     background-color: #1BB99A;
 }
+.details {
+    background-color: white;
+    border: #1BB99A 1px solid;
+    padding: 8px;
+}
+.editForm {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.editItems{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 60%;
+}
+.editForm>button{
+    width: 60%;
+    /*margin: auto;*/
+}
+
 footer {
     color: white;
     background-color: #272b2d;
