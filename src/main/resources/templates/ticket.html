@@ -16,21 +16,26 @@
         status. Cada chamado inclui informações como usuário, setor, descrição,
         prioridade e data de início.
     </p>
-    <form action="/criar-chamado" method="post">
-        <label for="tituloChamado">Titulo:</label><br>
-        <input id="tituloChamado" name="tituloChamado"></input><br>
-
-        <label for="descricao">Descrição:</label><br>
-        <textarea id="descricao" name="descricao" rows="4" cols="50"></textarea><br>
-
-        <label for="prioridade">Prioridade:</label><br>
+    <form class="editForm" action="/criar-chamado" method="post">
+        <div class="editItems">
+        <label for="tituloChamado">Titulo:</label>
+        <input id="tituloChamado" name="tituloChamado"></input>
+        </div>
+        <div class="editItems">
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao" rows="4" cols="50"></textarea>
+        </div>
+        <div class="editItems">
+        <label for="prioridade">Prioridade:</label>
         <select id="prioridade" name="prioridade">
             <option value="baixa">Baixa</option>
             <option value="média">Média</option>
             <option value="alta">Alta</option>
-        </select><br>
+        </select>
+        </div>
 
-        <label for="setorDeDirecionamento">Setor de Direcionamento:</label><br>
+        <div class="editItems">
+        <label for="setorDeDirecionamento">Setor de Direcionamento:</label>
         <select id="setorDeDirecionamento" name="setorDeDirecionamento">
             <option value="">--Selecione o setor do chamado--</option>
             <option value="Administracao">Administração</option>
@@ -42,7 +47,8 @@
             <option value="TI">Tecnologia da Informação</option>
             <option value="Juridico">Jurídico</option>
             <option value="Logistica">Logística</option>
-        </select><br>
+        </select>
+        </div>
 
         <!-- Adicionando campos ocultos para armazenar as informações do usuário -->
         <input type="hidden" id="usuario" name="usuario" th:value="${param.usuario}">
@@ -54,7 +60,7 @@
             </script>
         </div>
 
-        <button type="submit">Criar Chamado</button>
+        <button class="simple-btn" type="submit">Criar Chamado</button>
     </form>
 </main>
 
