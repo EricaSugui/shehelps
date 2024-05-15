@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,6 +68,22 @@ public class AdmController {
         model.addAttribute("ticketsSetorDirecionamento", ticketsSetorDirecionamento);
 
         return "admin";
+    }
+
+    @PostMapping("/admin")
+    public String tratarChamado(@RequestParam("id")Long id, @ModelAttribute("ticket") Ticket aberto, HttpSession session,RedirectAttributes redirectAttributes){
+        Ticket chamado = ticketRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("ID de chamado inválido: " + id));
+
+        chamado.setStatus(aberto.getStatus());
+        chamado.setSetorDeDirecionamento(aberto.getSetorDeDirecionamento());
+        chamado.setPrioridade(aberto.getPrioridade());
+
+        ticketRepository.save(chamado);
+        redirectAttributes.addAttribute("mensagem", "Chamado atualizado com sucesso!");
+
+
+        return "redirect:/admin";
     }
 
 }
