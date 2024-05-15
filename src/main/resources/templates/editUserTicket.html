@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{base :: layout (~{:: main})}" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main>
+    <h1>Detalhes do Ticket</h1>
+    <p>Nome: <span th:text="${ticket.nome}"></span></p>
+    <p>Setor de Direcionamento: <span th:text="${ticket.setorDeDirecionamento}"></span></p>
+    <p>Descrição: <span th:text="${ticket.descricao}"></span></p>
+    <p>Prioridade Atual: <span th:text="${ticket.prioridade}"></span></p>
+    <p>Status: <span th:text="${ticket.status}"></span> </p>
+    <div>
+
+        <form action="/edit-ticket" method="post">
+            <input type="hidden" name="id" th:value="${ticket.id}">
+
+            <label for="descricao">Descrição:</label>
+            <textarea type="text" id="descricao" name="descricao" th:value="${ticket.descricao}" rows="5" cols="33"></textarea><br/>
+
+            <label for="prioridade">Prioridade:</label>
+            <select id="prioridade" name="prioridade">
+                <option th:value="${alta}" th:selected="${ticket.prioridade == 'alta'}">Alta</option>
+                <option th:value="${média}" th:selected="${ticket.prioridade == 'média'}">Média</option>
+                <option th:value="${baixa}" th:selected="${ticket.prioridade == 'baixa'}">Baixa</option>
+            </select>
+
+            <label for="setorDeDirecionamento">Setor de Direcionamento:</label>
+            <select id="setorDeDirecionamento" name="setorDeDirecionamento" >
+
+                <option th:each="sector : ${T(com.soulcode.demo.models.Sector).values()}"
+                        th:value="${sector}"
+                        th:selected="${ticket.setorDeDirecionamento == sector}">
+                    <span th:text="${#strings.capitalize(sector.name().replace('_', ' '))}"></span>
+                </option>
+            </select>
+
+            <!--        <label for="mudar-status">Status:</label>-->
+            <!--        <select id="mudar-status" name="mudar-status">-->
+            <!--            <option th:value="${Aguardando_técnico}" th:selected="${ticket.prioridade == 'Aguardando_técnico'}">Aguardando_técnico</option>-->
+            <!--            <option th:value="${Em_atendimento}" th:selected="${ticket.prioridade == 'Em_atendimento'}">Em_atendimento</option>-->
+            <!--            <option th:value="${Escalado_para_outro_setor}" th:selected="${ticket.prioridade == 'Escalado_para_outro_setor'}">Escalado_para_outro_setor</option>-->
+            <!--            <option th:value="${Finalizado}" th:selected="${ticket.prioridade == 'Finalizado'}">Finalizado</option>-->
+            <!--        </select>-->
+
+            <button type="submit">Salvar</button>
+        </form>
+    </div>
+
+</main>
+</body>
+</html>

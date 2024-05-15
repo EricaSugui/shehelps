@@ -26,7 +26,9 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>Descrição</th>
+            <th>Título</th>
+            <th >Descrição</th>
+            <th >Setor do chamado</th>
             <th>Prioridade</th>
             <th>Status</th>
         </tr>
@@ -34,7 +36,9 @@
         <tbody>
         <tr th:each="ticket : ${tickets}">
             <td th:text="${ticket.id}"></td>
-            <td th:text="${ticket.descricao}"></td>
+            <td  th:text="${ticket.tituloChamado}"></td>
+            <td class="truncate" th:text="${ticket.descricao}"></td>
+            <td th:text="${ticket.setorDeDirecionamento}"></td>
             <td th:text="${ticket.prioridade}"></td>
             <td th:text="${ticket.status}"></td>
         </tr>

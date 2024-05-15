@@ -155,6 +155,13 @@ table{
 tbody > tr:nth-child(odd) {
     background: rgba(206, 206, 206, 0.78);
 }
+.truncate{
+    max-width: 150px;
+    max-height: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 thead{
     background-color: #1BB99A;
 }

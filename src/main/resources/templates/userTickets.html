@@ -11,8 +11,10 @@
         <thead>
         <tr>
             <th>ID</th>
+            <th>Título</th>
             <th>Descrição</th>
             <th>Prioridade</th>
+            <th>Setor do chamado</th>
             <th>Status</th>
             <th>Ação</th>
         </tr>
@@ -21,8 +23,10 @@
         <!-- Loop sobre os chamados aguardando técnico -->
         <tr th:each="ticket : ${tickets}">
             <td th:text="${ticket.id}"></td>
-            <td th:text="${ticket.descricao}"></td>
+            <td th:text="${ticket.tituloChamado}"></td>
+            <td class="truncate" th:text="${ticket.descricao}"></td>
             <td th:text="${ticket.prioridade}"></td>
+            <td th:text="${ticket.setorDeDirecionamento}"></td>
             <td th:text="${ticket.status}"></td>
             <td>
                 <!-- Link para editar o chamado -->
