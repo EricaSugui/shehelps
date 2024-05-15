@@ -2,6 +2,8 @@
 <html lang="en" th:replace="~{base :: layout (~{:: main})}" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <title>Title</title>
 
 </head>
@@ -13,7 +15,7 @@
     </h2>
     <p>
         Este painel oferece uma visão abrangente do uso do sistema, fornecendo dados
-        essenciais, como o número de chamados em aberto, em execução e
+        essenciais, como o número de chamados em item, em execução e
         aguardando. Além disso, permite o gerenciamento de elementos-chave do
         sistema, como os setores da empresa e os tipos de prioridade. Isso possibilita o
         cadastramento de informações vitais, garantindo flexibilidade e adaptabilidade
@@ -23,8 +25,8 @@
     <h1> Chamados criados </h1>
     <div style="display: flex ; flex-direction: row; justify-content: space-around; gap: 20px">
         <div class="tickets open">
-            <p>Em aberto: </p>
-            <p th:text="${contagemStatusEmAberto}"></p>
+            <p>Em item: </p>
+            <p th:text="${contagemStatusEmItem}"></p>
         </div>
 
         <div class="tickets doing">
@@ -38,31 +40,109 @@
         </div>
     </div>
 
-<!--    <div>-->
-        <table>
-            <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Título</th>
-                <th>Descrição</th>
-                <th>Setor</th>
-                <th>Prioridade</th>
-                <th colspan="2">Status</th>
-            </tr>
-            </thead>
-            <tr th:each="item : ${items}">
-                <td th:text="${item.nome}"></td>
-                <td  th:text="${item.tituloChamado}"></td>
-                <td class="truncate" th:text="${item.descricao}"></td>
-                <td th:text="${item.setorDeDirecionamento}"></td>
-                <td th:text="${item.prioridade}"></td>
-                <td th:text="${item.status}"></td>
-                <td>
-                    <a th:href="@{'/edit-ticket/' + ${item.id}}">Editar</a>
-                </td>
-            </tr>
-        </table>
-<!--    </div>-->
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Título</th>
+            <th>Setor</th>
+            <th>Prioridade</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.nome}"></td>
+            <td th:text="${item.tituloChamado}"></td>
+            <td th:text="${item.setorDeDirecionamento}"></td>
+            <td th:text="${item.prioridade}"></td>
+            <td th:text="${item.status}"></td>
+            <!--            <td>-->
+            <!--                <a th:href="@{'/edit-ticket/' + ${item.id}}">Editar</a>-->
+            <!--            </td>-->
+            <td>
+                <button type="button" class="simple-btn" data-toggle="modal" data-target="#modalDetalhesTicket"
+                        th:attrappend="data-target=${item.id}">
+                    Editar
+                </button>
+                <form id="form-salvar-chamado" action="/admin" method="post">
+                    <input type="hidden" name="id" th:value="${item.id}">
+                    <div class=" modal fade " th:attrappend="id=${item.id}" id="modalDetalhesTicket" tabindex="-1"
+                         role="dialog"
+                         aria-labelledby="exampleModalLabel"
+
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel"
+                                        style="color: #1BB99A " th:text="${item.tituloChamado}"></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div class="form-modal">
+                                        <p> Título do Chamado </p>
+                                        <div th:text="${item.tituloChamado}"></div>
+                                    </div>
+
+                                    <div class="form-modal">
+                                        <p> Descrição </p>
+                                        <div th:text="${item.descricao}"></div>
+                                    </div>
+
+                                    <div class="form-modal">
+                                        <p for="status">Status</p>
+                                        <select id="status" name="status">
+                                            <option th:each="status : ${T(com.soulcode.demo.models.Status).values()}"
+                                                    th:value="${status}"
+                                                    th:selected="${item.status == status}">
+                                                <span th:text="${#strings.replace(status, '_', ' ')}"></span>
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-modal">
+                                        <p for="setorDeDirecionamento"> Setor responsável </p>
+                                        <select id="setorDeDirecionamento" name="setorDeDirecionamento">
+                                            <option th:each="setorDeDirecionamento : ${T(com.soulcode.demo.models.Sector).values()}"
+                                                    th:value="${setorDeDirecionamento}"
+                                                    th:selected="${item.setorDeDirecionamento == setorDeDirecionamento}">
+                                                <span th:text="${#strings.capitalize(setorDeDirecionamento.name().replace('_', ' '))}"></span>
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-modal">
+                                        <p for="prioridade">Prioridade:</p>
+                                        <select id="prioridade" name="prioridade">
+                                            <option th:selected="${item.prioridade == 'alta'}" th:value="${alta}">Alta
+                                            </option>
+                                            <option th:selected="${item.prioridade == 'média'}" th:value="${média}">
+                                                Média
+                                            </option>
+                                            <option th:selected="${item.prioridade == 'baixa'}" th:value="${baixa}">
+                                                Baixa
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="login-btn">Salvar</button>
+
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </td>
+        </tr>
+    </table>
 
     <h2> Filtro por prioridade </h2>
     <form action="#" th:action="@{/admin}" th:object="${filtroPropriedade}">
@@ -72,16 +152,15 @@
             <option value="Média">Média</option>
             <option value="Alta">Alta</option>
         </select>
-        <button  class="simple-btn" type="submit">Filtrar</button>
+        <button class="simple-btn" type="submit">Filtrar</button>
     </form>
 
 
-   <table>
+    <table class="table table-striped table-hover">
         <thead>
         <tr>
             <th>Nome</th>
             <th>Título</th>
-            <th>Descrição</th>
             <th>Setor</th>
             <th>Prioridade</th>
             <th>Status</th>
@@ -91,7 +170,6 @@
         <tr th:each="ticket : ${ticketsFiltradosPrioridade}">
             <td th:text="${ticket.nome}"></td>
             <td th:text="${ticket.tituloChamado}"></td>
-            <td class="truncate" th:text="${ticket.descricao}"></td>
             <td th:text="${ticket.setorDeDirecionamento}"></td>
             <td th:text="${ticket.prioridade}"></td>
             <td th:text="${ticket.status}"></td>
@@ -116,12 +194,11 @@
         <button class="simple-btn" type="submit">Filtrar</button>
     </form>
 
-    <table>
+    <table class="table table-striped table-hover">
         <thead>
         <tr>
             <th>Nome</th>
             <th>Título</th>
-            <th>Descrição</th>
             <th>Setor do chamado</th>
             <th>Prioridade</th>
             <th>Status</th>
@@ -131,7 +208,6 @@
         <tr th:each="ticket : ${ticketsSetorDirecionamento}">
             <td th:text="${ticket.nome}"></td>
             <td th:text="${ticket.tituloChamado}"></td>
-            <td class="truncate" th:text="${ticket.descricao}"></td>
             <td th:text="${ticket.setorDeDirecionamento}"></td>
             <td th:text="${ticket.prioridade}"></td>
             <td th:text="${ticket.status}"></td>
@@ -142,18 +218,19 @@
         $('.toast').toast('show');
     </script>
     <div th:if="${param.mensagem}">
-        <div class="toast ml-auto" role="alert" aria-live="assertive" aria-atomic="true"  data-delay="1000" data-autohide="true" >
-        <div class="toast-header">
-            <img src="/assets/operator_64.png" class="rounded mr-2" alt="...">
-            <strong class="mr-auto">SheHelps</strong>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+        <div class="toast ml-auto" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1000"
+             data-autohide="true">
+            <div class="toast-header">
+                <img src="/assets/operator_64.png" class="rounded mr-2" alt="...">
+                <strong class="mr-auto">SheHelps</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                <p th:text="${param.mensagem }"></p>
+            </div>
         </div>
-        <div class="toast-body">
-            <p th:text="${param.mensagem }"></p>
-        </div>
-    </div>
     </div>
 </main>
 </body>

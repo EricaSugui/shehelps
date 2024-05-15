@@ -75,7 +75,7 @@ public class TechnicianController {
     }
     
     @PostMapping("/technical")
-    public String tratarChamado(@RequestParam("id")Long id, @ModelAttribute("ticket") Ticket aberto,@RequestParam("comentarioTecnico")String comentarioTecnico ,HttpSession session,RedirectAttributes redirectAttributes){
+    public String tratarChamado(@RequestParam("id")Long id, @ModelAttribute("ticket") Ticket aberto,@RequestParam("respostaTecnico")String respostaTecnico ,HttpSession session,RedirectAttributes redirectAttributes){
         Ticket chamado = ticketRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("ID de chamado inválido: " + id));
 
@@ -88,7 +88,7 @@ public class TechnicianController {
 
         chamado.setStatus(aberto.getStatus());
         chamado.setSetorDeDirecionamento(aberto.getSetorDeDirecionamento());
-        chamado.setRespostaTecnico(comentarioTecnico);
+        chamado.setRespostaTecnico(respostaTecnico);
 
 
 
