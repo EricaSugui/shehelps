@@ -25,8 +25,8 @@
     <h1> Chamados criados </h1>
     <div style="display: flex ; flex-direction: row; justify-content: space-around; gap: 20px">
         <div class="tickets open">
-            <p>Em item: </p>
-            <p th:text="${contagemStatusEmItem}"></p>
+            <p>Em Aberto: </p>
+            <p th:text="${contagemStatusEmAberto}"></p>
         </div>
 
         <div class="tickets doing">
@@ -114,15 +114,16 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div class="form-modal">
-                                        <p for="prioridade">Prioridade:</p>
+                                    <div class="editItems">
+                                        <label for="prioridade">Prioridade:</label>
                                         <select id="prioridade" name="prioridade">
-                                            <option th:selected="${item.prioridade == 'alta'}" th:value="${alta}">Alta
+                                            <option value="Alta" th:selected="${item.prioridade == 'Alta'}">
+                                                Alta
                                             </option>
-                                            <option th:selected="${item.prioridade == 'média'}" th:value="${média}">
+                                            <option value="Média" th:selected="${item.prioridade == 'Média'}">
                                                 Média
                                             </option>
-                                            <option th:selected="${item.prioridade == 'baixa'}" th:value="${baixa}">
+                                            <option value="Baixa" th:selected="${item.prioridade == 'Baixa'}">
                                                 Baixa
                                             </option>
                                         </select>
