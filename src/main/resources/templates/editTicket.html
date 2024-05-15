@@ -1,38 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{base :: layout (~{:: main})}" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" th:replace="~{base :: layout (~{:: main})}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<main>
-    <h1>Detalhes do Ticket</h1>
-    <p>Nome: <span th:text="${ticket.nome}"></span></p>
-    <p>Setor de Direcionamento: <span th:text="${ticket.setorDeDirecionamento}"></span></p>
-    <p>Descrição: <span th:text="${ticket.descricao}"></span></p>
-    <p>Prioridade Atual: <span th:text="${ticket.prioridade}"></span></p>
-    <p>Status: <span th:text="${ticket.status}"></span> </p>
-    <div>
 
-        <form action="/edit-ticket" method="post">
-            <input type="hidden" name="id" th:value="${ticket.id}">
+    <main>
+        <h1>Detalhes do Ticket</h1>
+        <p>Nome: <span th:text="${ticket.nome}"></span></p>
+        <p>Setor de Direcionamento: <span th:text="${ticket.setorDeDirecionamento}"></span></p>
+        <p>Descrição: <span th:text="${ticket.descricao}"></span></p>
+        <p>Prioridade Atual: <span th:text="${ticket.prioridade}"></span></p>
+        <p>Status: <span th:text="${ticket.status}"></span></p>
+        <div>
 
-            <label for="descricao">Descrição:</label>
-            <input type="text" id="descricao" name="descricao" th:value="${ticket.descricao}"/><br/>
+            <form action="/edit-ticket" method="post">
+            <input name="id" th:value="${ticket.id}" type="hidden">
 
             <label for="prioridade">Prioridade:</label>
             <select id="prioridade" name="prioridade">
-                <option th:value="${alta}" th:selected="${ticket.prioridade == 'alta'}">Alta</option>
-                <option th:value="${média}" th:selected="${ticket.prioridade == 'média'}">Média</option>
-                <option th:value="${baixa}" th:selected="${ticket.prioridade == 'baixa'}">Baixa</option>
+                <option th:selected="${ticket.prioridade == 'alta'}" th:value="${alta}">Alta</option>
+                <option th:selected="${ticket.prioridade == 'média'}" th:value="${média}">Média</option>
+                <option th:selected="${ticket.prioridade == 'baixa'}" th:value="${baixa}">Baixa</option>
             </select>
 
             <label for="setorDeDirecionamento">Setor de Direcionamento:</label>
-            <select id="setorDeDirecionamento" name="setorDeDirecionamento" >
+            <select id="setorDeDirecionamento" name="setorDeDirecionamento">
 
                 <option th:each="sector : ${T(com.soulcode.demo.models.Sector).values()}"
-                        th:value="${sector}"
-                        th:selected="${ticket.setorDeDirecionamento == sector}">
+                        th:selected="${ticket.setorDeDirecionamento == sector}"
+                        th:value="${sector}">
                     <span th:text="${#strings.capitalize(sector.name().replace('_', ' '))}"></span>
                 </option>
             </select>
@@ -47,8 +45,8 @@
 
             <button type="submit">Salvar</button>
         </form>
-    </div>
+        </div>
 
-</main>
+    </main>
 </body>
 </html>

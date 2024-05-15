@@ -1,7 +1,5 @@
 package com.soulcode.demo.controller;
 
-import com.soulcode.demo.dto.TicketDTO;
-import com.soulcode.demo.models.Persona;
 import com.soulcode.demo.models.Sector;
 import com.soulcode.demo.models.Status;
 import com.soulcode.demo.models.Ticket;
@@ -66,7 +64,7 @@ public class TicketController {
 
         model.addAttribute("ticket", ticket);
 
-        return "edit-ticket";
+        return "editTicket";
     }
 
     @PostMapping("/edit-ticket")
@@ -92,7 +90,7 @@ public class TicketController {
 
         model.addAttribute("tickets", awaitingTechnicianTickets);
 
-        return "user-tickets";
+        return "userTickets";
     }
 
     @GetMapping("/edit-user-ticket/{id}")
@@ -100,7 +98,7 @@ public class TicketController {
         Ticket ticket = ticketRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("ID de chamado inválido: " + id));
         model.addAttribute("ticket", ticket);
-        return "edit-user-ticket";
+        return "editUserTicket";
     }
 
     @PostMapping("/edit-user-tickets")

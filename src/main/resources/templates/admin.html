@@ -9,7 +9,7 @@
 
 <main>
     <h2>
-        PAINEL DO ADMIN AQUI
+        PAINEL DO ADMIN
     </h2>
     <p>
         Este painel oferece uma visão abrangente do uso do sistema, fornecendo dados
@@ -43,14 +43,20 @@
             <thead>
             <tr>
                 <th>Nome</th>
+                <th>Título</th>
                 <th>Descrição</th>
+                <th>Setor</th>
+                <th>Prioridade</th>
                 <th colspan="2">Status</th>
             </tr>
             </thead>
             <tr th:each="item : ${items}">
                 <td th:text="${item.nome}"></td>
-                <td th:text="${item.descricao}"></td>
+                <td  th:text="${item.tituloChamado}"></td>
+                <td class="truncate" th:text="${item.descricao}"></td>
+                <td th:text="${item.setorDeDirecionamento}"></td>
                 <td th:text="${item.prioridade}"></td>
+                <td th:text="${item.status}"></td>
                 <td>
                     <a th:href="@{'/edit-ticket/' + ${item.id}}">Editar</a>
                 </td>
@@ -74,7 +80,9 @@
         <thead>
         <tr>
             <th>Nome</th>
+            <th>Título</th>
             <th>Descrição</th>
+            <th>Setor</th>
             <th>Prioridade</th>
             <th>Status</th>
         </tr>
@@ -82,7 +90,9 @@
         <tbody>
         <tr th:each="ticket : ${ticketsFiltradosPrioridade}">
             <td th:text="${ticket.nome}"></td>
-            <td th:text="${ticket.descricao}"></td>
+            <td th:text="${ticket.tituloChamado}"></td>
+            <td class="truncate" th:text="${ticket.descricao}"></td>
+            <td th:text="${ticket.setorDeDirecionamento}"></td>
             <td th:text="${ticket.prioridade}"></td>
             <td th:text="${ticket.status}"></td>
         </tr>
@@ -110,7 +120,9 @@
         <thead>
         <tr>
             <th>Nome</th>
+            <th>Título</th>
             <th>Descrição</th>
+            <th>Setor do chamado</th>
             <th>Prioridade</th>
             <th>Status</th>
         </tr>
@@ -118,7 +130,9 @@
         <tbody>
         <tr th:each="ticket : ${ticketsSetorDirecionamento}">
             <td th:text="${ticket.nome}"></td>
-            <td th:text="${ticket.descricao}"></td>
+            <td th:text="${ticket.tituloChamado}"></td>
+            <td class="truncate" th:text="${ticket.descricao}"></td>
+            <td th:text="${ticket.setorDeDirecionamento}"></td>
             <td th:text="${ticket.prioridade}"></td>
             <td th:text="${ticket.status}"></td>
         </tr>
