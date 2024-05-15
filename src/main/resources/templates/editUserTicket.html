@@ -41,7 +41,7 @@
     <div>
         <h2>Editar Ticket</h2>
 
-        <form class="editForm" action="/edit-ticket" method="post">
+        <form class="editForm" action="/edit-user-tickets" method="POST">
             <input type="hidden" name="id" th:value="${ticket.id}">
 
             <div class="editItems">
@@ -50,23 +50,26 @@
             </div>
             <div class="editItems">
             <label for="prioridade">Prioridade:</label>
-            <select id="prioridade" name="prioridade">
-                <option th:value="${alta}" th:selected="${ticket.prioridade == 'alta'}">Alta</option>
-                <option th:value="${média}" th:selected="${ticket.prioridade == 'média'}">Média</option>
-                <option th:value="${baixa}" th:selected="${ticket.prioridade == 'baixa'}">Baixa</option>
-            </select>
+                <select id="prioridade" name="prioridade">
+                    <option value="Alta" th:selected="${ticket.prioridade == 'Alta'}">Alta</option>
+                    <option value="Média" th:selected="${ticket.prioridade == 'Média'}">Média</option>
+                    <option value="Baixa" th:selected="${ticket.prioridade == 'Baixa'}">Baixa</option>
+                </select>
             </div>
 
             <div class="editItems">
-            <label for="setorDeDirecionamento">Setor de Direcionamento:</label>
-            <select id="setorDeDirecionamento" name="setorDeDirecionamento" >
-
-                <option th:each="sector : ${T(com.soulcode.demo.models.Sector).values()}"
-                        th:value="${sector}"
-                        th:selected="${ticket.setorDeDirecionamento == sector}">
-                    <span th:text="${#strings.capitalize(sector.name().replace('_', ' '))}"></span>
-                </option>
-            </select>
+                <label for="setorDeDirecionamento">Setor de Direcionamento:</label>
+                <select id="setorDeDirecionamento" name="setorDeDirecionamento">
+                    <option value="Administracao" th:selected="${ticket.setorDeDirecionamento == 'Administracao'}">Administração</option>
+                    <option value="Recursos_Humanos" th:selected="${ticket.setorDeDirecionamento == 'Recursos_Humanos'}">Recursos Humanos</option>
+                    <option value="Financeiro" th:selected="${ticket.setorDeDirecionamento == 'Financeiro'}">Financeiro</option>
+                    <option value="Vendas" th:selected="${ticket.setorDeDirecionamento == 'Vendas'}">Vendas</option>
+                    <option value="Marketing" th:selected="${ticket.setorDeDirecionamento == 'Marketing'}">Marketing</option>
+                    <option value="Producao" th:selected="${ticket.setorDeDirecionamento == 'Producao'}">Produção</option>
+                    <option value="TI" th:selected="${ticket.setorDeDirecionamento == 'TI'}">TI</option>
+                    <option value="Juridico" th:selected="${ticket.setorDeDirecionamento == 'Juridico'}">Jurídico</option>
+                    <option value="Logistica" th:selected="${ticket.setorDeDirecionamento == 'Logistica'}">Logística</option>
+                </select>
             </div>
 
             <!--        <label for="mudar-status">Status:</label>-->

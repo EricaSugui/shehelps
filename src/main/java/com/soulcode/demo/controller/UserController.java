@@ -1,5 +1,6 @@
 package com.soulcode.demo.controller;
 
+import com.soulcode.demo.models.Persona;
 import com.soulcode.demo.models.Status;
 import com.soulcode.demo.models.Ticket;
 import com.soulcode.demo.service.TicketService;
@@ -14,38 +15,41 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
-@Controller
+import static com.soulcode.demo.models.TypeUser.USUARIO;
+
 @RequestMapping
+@Controller
 public class UserController {
-    private static final Logger logger = LoggerFactory.getLogger(TicketController.class);
+
+    private final TicketService ticketService;
 
     @Autowired
-    TicketService ticketService;
-
-
-    @GetMapping("/user")
-    public String mostrarFormularioChamado(Model model, Principal principal) {
-        logger.debug("Mostrando formulário de criação de chamado.");
-        return "user";
-    }
-
-
     public UserController(TicketService ticketService) {
         this.ticketService = ticketService;
     }
-    @GetMapping("/user-dashboard")
-    public String userDashboard(Model model, HttpSession session, @RequestParam(required = false) Status filterStatus) {
 
-        String email = (String) session.getAttribute("email");
+
+    @GetMapping("/user")
+    public String userDashboard(Model model, HttpSession session, @RequestParam(required = false) Status status) {
+        Persona usuario = (Persona) session.getAttribute("usuarioLogado");
+        if (usuario == null || !usuario.getTipo().equals(USUARIO)) {
+            return "redirect:/login";
+        }
+
+        String email = usuario.getEmail();
+
 
         List<Ticket> userTickets = ticketService.getTicketsByEmail(email);
 
-        if (filterStatus != null) {
-            userTickets = ticketService.getTicketsByEmailAndStatus(email, filterStatus);
+        System.out.println(status);
+
+        if (status != null) {
+            userTickets = ticketService.getTicketsByEmailAndStatus(email, status);
+
         }
 
         model.addAttribute("tickets", userTickets);
-        model.addAttribute("filterStatus", filterStatus);
+        model.addAttribute("filterStatus", status);
 
         return "user";
     }

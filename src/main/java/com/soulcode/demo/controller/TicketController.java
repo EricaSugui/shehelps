@@ -102,15 +102,15 @@ public class TicketController {
     }
 
     @PostMapping("/edit-user-tickets")
-    public String updateUserAwaitingTechnicianTicket(@RequestParam("id") Long id, @ModelAttribute("ticket") Ticket ticket, RedirectAttributes redirectAttributes) {
-        Ticket existingTicket = ticketRepository.findById(id)
+    public String updateUserTicket(@RequestParam("id") Long id, @ModelAttribute("ticket") Ticket chamado, RedirectAttributes redirectAttributes) {
+        Ticket existingChamado = ticketRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("ID de chamado inválido: " + id));
 
-        existingTicket.setDescricao(ticket.getDescricao());
-        existingTicket.setPrioridade(ticket.getPrioridade());
-        existingTicket.setSetorDeDirecionamento(ticket.getSetorDeDirecionamento());
+        existingChamado.setDescricao(chamado.getDescricao());
+        existingChamado.setPrioridade(chamado.getPrioridade());
+        existingChamado.setSetor(chamado.getSetor());
 
-        ticketRepository.save(existingTicket);
+        ticketRepository.save(existingChamado);
 
         redirectAttributes.addAttribute("mensagem", "Chamado atualizado com sucesso!");
         return "redirect:/user-tickets";

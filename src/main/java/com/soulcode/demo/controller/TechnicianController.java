@@ -36,7 +36,7 @@ public class TechnicianController {
     @GetMapping("/technical")
     public String telaTecnico(Model model, HttpSession session,@ModelAttribute("filtroSetor") Ticket filtroSetor) {
         Persona usuario = (Persona) session.getAttribute("usuarioLogado");
-        if (usuario == null || usuario.getTipo().equals(TypeUser.USUARIO)) {
+        if (usuario == null || !usuario.getTipo().equals(TypeUser.TECNICO)) {
             return "redirect:/login";
         }
 
