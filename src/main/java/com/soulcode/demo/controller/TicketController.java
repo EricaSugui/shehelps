@@ -55,7 +55,7 @@ public class TicketController {
         ticketService.createTicket(tituloChamado,descricao, prioridade, setorDeDirecionamento, nomeUsuario, setor, email);
         redirectAttributes.addAttribute("mensagem", "Chamado criado com sucesso!");
 
-        return "redirect:/user-dashboard";
+        return "redirect:/user";
     }
 
     @GetMapping("/edit-ticket/{id}")

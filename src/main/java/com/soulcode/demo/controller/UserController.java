@@ -32,7 +32,7 @@ public class UserController {
     @GetMapping("/user")
     public String userDashboard(Model model, HttpSession session, @RequestParam(required = false) Status status) {
         Persona usuario = (Persona) session.getAttribute("usuarioLogado");
-        if (usuario == null || !usuario.getTipo().equals(USUARIO)) {
+        if (usuario == null) {
             return "redirect:/login";
         }
 
