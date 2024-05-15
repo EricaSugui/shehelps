@@ -8,32 +8,62 @@
 
     <main>
         <h1>Detalhes do Ticket</h1>
-        <p>Nome: <span th:text="${ticket.nome}"></span></p>
-        <p>Setor de Direcionamento: <span th:text="${ticket.setorDeDirecionamento}"></span></p>
-        <p>Descrição: <span th:text="${ticket.descricao}"></span></p>
-        <p>Prioridade Atual: <span th:text="${ticket.prioridade}"></span></p>
-        <p>Status: <span th:text="${ticket.status}"></span></p>
-        <div>
+        <table>
+            <thead>
+            <tr>
+                <th></th>
+                <th style="width: 70%"></th>
+            </tr>
+            </thead>
+            <tbody class="details">
+            <tr class="details">
+                <th class="details">Nome:</th>
+                <td class="details" th:text="${ticket.nome}"></td>
+            </tr>
+            <tr class="details">
+                <th class="details">Setor de Direcionamento:</th>
+                <td class="details" th:text="${ticket.setorDeDirecionamento}"></td>
+            </tr>
+            <tr class="details">
+                <th class="details">Descrição:</th>
+                <td class="details" th:text="${ticket.descricao}"></td>
+            </tr>
+            <tr class="details">
+                <th class="details">Prioridade Atual:</th>
+                <td class="details" th:text="${ticket.prioridade}"></td>
+            </tr>
+            <tr class="details">
+                <th class="details">Status:</th>
+                <td class="details" th:text="${ticket.status}"></td>
+            </tr>
+            </tbody>
+        </table>
 
-            <form action="/edit-ticket" method="post">
+        <div>
+            <h2>Editar Ticket</h2>
+            <form class="editForm" action="/edit-ticket" method="post">
             <input name="id" th:value="${ticket.id}" type="hidden">
 
-            <label for="prioridade">Prioridade:</label>
-            <select id="prioridade" name="prioridade">
-                <option th:selected="${ticket.prioridade == 'alta'}" th:value="${alta}">Alta</option>
-                <option th:selected="${ticket.prioridade == 'média'}" th:value="${média}">Média</option>
-                <option th:selected="${ticket.prioridade == 'baixa'}" th:value="${baixa}">Baixa</option>
-            </select>
+                <div class="editItems">
+                    <label for="prioridade">Prioridade:</label>
+                    <select id="prioridade" name="prioridade">
+                        <option th:value="${alta}" th:selected="${ticket.prioridade == 'alta'}">Alta</option>
+                        <option th:value="${média}" th:selected="${ticket.prioridade == 'média'}">Média</option>
+                        <option th:value="${baixa}" th:selected="${ticket.prioridade == 'baixa'}">Baixa</option>
+                    </select>
+                </div>
 
-            <label for="setorDeDirecionamento">Setor de Direcionamento:</label>
-            <select id="setorDeDirecionamento" name="setorDeDirecionamento">
+                <div class="editItems">
+                    <label for="setorDeDirecionamento">Setor de Direcionamento:</label>
+                    <select id="setorDeDirecionamento" name="setorDeDirecionamento" >
 
-                <option th:each="sector : ${T(com.soulcode.demo.models.Sector).values()}"
-                        th:selected="${ticket.setorDeDirecionamento == sector}"
-                        th:value="${sector}">
-                    <span th:text="${#strings.capitalize(sector.name().replace('_', ' '))}"></span>
-                </option>
-            </select>
+                        <option th:each="sector : ${T(com.soulcode.demo.models.Sector).values()}"
+                                th:value="${sector}"
+                                th:selected="${ticket.setorDeDirecionamento == sector}">
+                            <span th:text="${#strings.capitalize(sector.name().replace('_', ' '))}"></span>
+                        </option>
+                    </select>
+                </div>
 
             <!--        <label for="mudar-status">Status:</label>-->
             <!--        <select id="mudar-status" name="mudar-status">-->
@@ -43,7 +73,7 @@
             <!--            <option th:value="${Finalizado}" th:selected="${ticket.prioridade == 'Finalizado'}">Finalizado</option>-->
             <!--        </select>-->
 
-            <button type="submit">Salvar</button>
+            <button class="simple-btn" type="submit">Salvar</button>
         </form>
         </div>
 
