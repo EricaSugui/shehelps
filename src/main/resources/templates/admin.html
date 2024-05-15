@@ -57,9 +57,9 @@
             <td th:text="${item.setorDeDirecionamento}"></td>
             <td th:text="${item.prioridade}"></td>
             <td th:text="${item.status}"></td>
-<!--            <td>-->
-<!--                <a th:href="@{'/edit-ticket/' + ${item.id}}">Editar</a>-->
-<!--            </td>-->
+            <!--            <td>-->
+            <!--                <a th:href="@{'/edit-ticket/' + ${item.id}}">Editar</a>-->
+            <!--            </td>-->
             <td>
                 <button type="button" class="simple-btn" data-toggle="modal" data-target="#modalDetalhesTicket"
                         th:attrappend="data-target=${item.id}">
@@ -113,13 +113,19 @@
                                                 <span th:text="${#strings.capitalize(setorDeDirecionamento.name().replace('_', ' '))}"></span>
                                             </option>
                                         </select>
-                                        <div class="form-modal">
-                                            <p for="prioridade">Prioridade:</p>
-                                            <select id="prioridade" name="prioridade">
-                                                <option th:selected="${item.prioridade == 'alta'}" th:value="${alta}">Alta</option>
-                                                <option th:selected="${item.prioridade == 'média'}" th:value="${média}">Média</option>
-                                                <option th:selected="${item.prioridade == 'baixa'}" th:value="${baixa}">Baixa</option>
-                                            </select>
+                                    </div>
+                                    <div class="form-modal">
+                                        <p for="prioridade">Prioridade:</p>
+                                        <select id="prioridade" name="prioridade">
+                                            <option th:selected="${item.prioridade == 'alta'}" th:value="${alta}">Alta
+                                            </option>
+                                            <option th:selected="${item.prioridade == 'média'}" th:value="${média}">
+                                                Média
+                                            </option>
+                                            <option th:selected="${item.prioridade == 'baixa'}" th:value="${baixa}">
+                                                Baixa
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -146,7 +152,7 @@
             <option value="Média">Média</option>
             <option value="Alta">Alta</option>
         </select>
-        <button  class="simple-btn" type="submit">Filtrar</button>
+        <button class="simple-btn" type="submit">Filtrar</button>
     </form>
 
 
