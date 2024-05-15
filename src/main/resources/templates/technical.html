@@ -22,8 +22,7 @@
     </p>
 
     <div class="main flex-column">
-
-        <div><h1> Seus chamados: </h1></div>
+        <div><h1> Seus chamados em andamento: </h1></div>
         <div class="custom-column">
             <table class="table table-striped table-hover">
                 <thead>
@@ -33,7 +32,115 @@
                     <th>Prioridade</th>
                     <th>Nome</th>
                     <th>Setor do Técnico</th>
-                    <th>Setor do Usuário</th>
+                    <th>Técnico atribuido</th>
+                    <th>Status</th>
+                    <th></th>
+
+                </tr>
+                </thead>
+                <tr th:each="aberto : ${andamentos}">
+                    <td th:text="${aberto.id}"></td>
+                    <td th:text="${aberto.tituloChamado}"></td>
+                    <td th:text="${aberto.prioridade}"></td>
+                    <td th:text="${aberto.nome}"></td>
+                    <td th:text="${aberto.setorDeDirecionamento}"></td>
+                    <td th:text="${aberto.tecnicoAtribuido}"></td>
+                    <td th:text="${aberto.status}"></td>
+                   <td> <button type="button" class="simple-btn" data-toggle="modal" data-target="#modalDetalhesTicket1"
+                                th:attrappend="data-target=${aberto.id}">
+                       Ver detalhes
+                   </button>
+
+                       <form id="form-salvar-chamados" action="/technical" method="post">
+                           <input type="hidden" name="id" th:value="${aberto.id}">
+                           <input type="hidden" name="nome" th:value="${aberto.nome}">
+                           <input type="hidden" name="email" th:value="${aberto.email}">
+                           <input type="hidden" name="setor" th:value="${aberto.setor}">
+                           <input type="hidden" name="respostaTecnico" th:value="${aberto.respostaTecnico}">
+                           <input type="hidden" name="prioridade" th:value="${aberto.prioridade}">
+                           <input type="hidden" name="dataSolicitacaoAtual" th:value="${aberto.dataSolicitacaoAtual}">
+                           <input type="hidden" name="setorDeDirecionamento" th:value="${aberto.setorDeDirecionamento}">
+                           <div class=" modal fade " th:attrappend="id=${aberto.id}" id="modalDetalhesTicket1" tabindex="-1"
+                                role="dialog"
+                                aria-labelledby="exampleModalLabel"
+
+                                aria-hidden="true">
+                               <div class="modal-dialog" role="document">
+                                   <div class="modal-content">
+                                       <div class="modal-header">
+                                           <h5 class="modal-title" id="exampleModalLabel1"
+                                               style="color: #1BB99A " th:text="${aberto.tituloChamado}"></h5>
+                                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                               <span aria-hidden="true">&times;</span>
+                                           </button>
+                                       </div>
+                                       <div class="modal-body">
+
+                                           <div class="form-modal">
+                                               <p> Título do Chamado </p>
+                                               <div th:text="${aberto.tituloChamado}"></div>
+                                           </div>
+
+                                           <div class="form-modal">
+                                               <p> Descrição </p>
+                                               <div th:text="${aberto.descricao}"></div>
+                                           </div>
+
+                                           <div class="form-modal">
+                                               <p for="status">Status</p>
+                                               <select name="status">
+                                                   <option th:each="status : ${T(com.soulcode.demo.models.Status).values()}"
+                                                           th:value="${status}"
+                                                           th:selected="${aberto.status == status}">
+                                                       <span th:text="${#strings.replace(status, '_', ' ')}"></span>
+                                                   </option>
+                                               </select>
+                                           </div>
+
+                                           <div class="form-modal">
+                                               <p for="setorDeDirecionamento"> Setor responsável </p>
+                                               <select name="setorDeDirecionamento">
+                                                   <option th:each="setorDeDirecionamento : ${T(com.soulcode.demo.models.Sector).values()}"
+                                                           th:value="${setorDeDirecionamento}"
+                                                           th:selected="${aberto.setorDeDirecionamento == setorDeDirecionamento}">
+                                                       <span th:text="${#strings.capitalize(setorDeDirecionamento.name().replace('_', ' '))}"></span>
+                                                   </option>
+                                               </select>
+                                           </div>
+
+                                           <div class="form-modal">
+                                               <p for="comentarioecnico"> Comentário do Técnico </p>
+                                               <div class="form-floating">
+                                                   <textarea class="form-control" name="comentarioTecnico" placeholder="Comentário do técnico"></textarea>
+                                               </div>
+                                           </div>
+
+                                       </div>
+                                       <div class="modal-footer">
+                                           <button type="submit" class="login-btn">Salvar</button>
+
+                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar
+                                           </button>
+                                       </div>
+
+                                   </div>
+
+                               </div>
+                           </div>
+                       </form>
+                   </td>
+                </tr>
+            </table></div>
+        <div><h1> Seus chamados Finalizados: </h1></div>
+        <div class="custom-column">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titulo</th>
+                    <th>Prioridade</th>
+                    <th>Nome</th>
+                    <th>Setor do Técnico</th>
                     <th>Status</th>
                 </tr>
                 </thead>
@@ -43,7 +150,6 @@
                     <td th:text="${item.prioridade}"></td>
                     <td th:text="${item.nome}"></td>
                     <td th:text="${item.setorDeDirecionamento}"></td>
-                    <td th:text="${item.setor}"></td>
                     <td th:text="${item.status}"></td>
 
                 </tr>
@@ -57,7 +163,6 @@
                     <th>Prioridade</th>
                     <th>Nome</th>
                     <th>Setor do Técnico</th>
-                    <th>Setor do Usuário</th>
                     <th>Status</th>
                     <th></th>
                 </tr>
@@ -68,13 +173,21 @@
                     <td th:text="${aberto.prioridade}"></td>
                     <td th:text="${aberto.nome}"></td>
                     <td th:text="${aberto.setorDeDirecionamento}"></td>
-                    <td th:text="${aberto.setor}"></td>
                     <td th:text="${aberto.status}"></td>
                     <td>
                         <button type="button" class="simple-btn" data-toggle="modal" data-target="#modalDetalhesTicket"
                                 th:attrappend="data-target=${aberto.id}">
                             Ver detalhes
                         </button>
+                        <form id="form-salvar-chamado" action="/technical" method="post">
+                            <input type="hidden" name="id" th:value="${aberto.id}">
+                            <input type="hidden" name="nome" th:value="${aberto.nome}">
+                            <input type="hidden" name="email" th:value="${aberto.email}">
+                            <input type="hidden" name="setor" th:value="${aberto.setor}">
+                            <input type="hidden" name="respostaTecnico" th:value="${aberto.respostaTecnico}">
+                            <input type="hidden" name="prioridade" th:value="${aberto.prioridade}">
+                            <input type="hidden" name="dataSolicitacaoAtual" th:value="${aberto.dataSolicitacaoAtual}">
+                            <input type="hidden" name="setorDeDirecionamento" th:value="${aberto.setorDeDirecionamento}">
                         <div class=" modal fade " th:attrappend="id=${aberto.id}" id="modalDetalhesTicket" tabindex="-1"
                              role="dialog"
                              aria-labelledby="exampleModalLabel"
@@ -90,6 +203,11 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
+
+                                        <div class="form-modal">
+                                            <p> Título do Chamado </p>
+                                            <div th:text="${aberto.tituloChamado}"></div>
+                                        </div>
 
                                         <div class="form-modal">
                                             <p> Descrição </p>
@@ -109,34 +227,35 @@
 
                                         <div class="form-modal">
                                             <p for="setorDeDirecionamento"> Setor responsável </p>
-                                            <select id="setorDeDirecionamento"
-                                                    name="setorDeDirecionamento">
-
-                                                <option th:each="sector : ${T(com.soulcode.demo.models.Sector).values()}"
-                                                        th:value="${sector}"
-                                                        th:selected="${aberto.setorDeDirecionamento == sector}">
-                                                    <span th:text="${#strings.capitalize(sector.name().replace('_', ' '))}"></span>
+                                            <select id="setorDeDirecionamento" name="setorDeDirecionamento">
+                                                <option th:each="setorDeDirecionamento : ${T(com.soulcode.demo.models.Sector).values()}"
+                                                        th:value="${setorDeDirecionamento}"
+                                                        th:selected="${aberto.setorDeDirecionamento == setorDeDirecionamento}">
+                                                    <span th:text="${#strings.capitalize(setorDeDirecionamento.name().replace('_', ' '))}"></span>
                                                 </option>
                                             </select>
                                         </div>
 
                                         <div class="form-modal">
-                                            <p for="respostaTecnico"> Comentário do Técnico </p>
+                                            <p for="comentarioecnico"> Comentário do Técnico </p>
                                             <div class="form-floating">
-                                            <textarea class="form-control" placeholder="Comentário do técnico"
-                                                      id="floatingTextarea"></textarea>
+                                                <textarea class="form-control" name="comentarioTecnico" placeholder="Comentário do técnico"></textarea>
                                             </div>
                                         </div>
 
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="submit" class="login-btn" data-dismiss="modal">Salvar</button>
+                                        <button type="submit" class="login-btn">Salvar</button>
+
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar
                                         </button>
                                     </div>
+
                                 </div>
+
                             </div>
                         </div>
+                        </form>
                     </td>
 
                 </tr>
@@ -146,9 +265,18 @@
 
 
 </main>
+
+
 <script src=" https:
                         //ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>$(document).ready(function() {
+    $('#form-salvar-chamado').submit(function() {
+        console.log("Formulário enviado!");
+    });
+});</script>
 </body>
 </html>

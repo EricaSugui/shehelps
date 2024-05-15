@@ -19,6 +19,9 @@ public class Ticket {
     private String nome;
 
     @Column
+    private String tecnicoAtribuido;
+
+    @Column
     private String email;
 
     @Column
