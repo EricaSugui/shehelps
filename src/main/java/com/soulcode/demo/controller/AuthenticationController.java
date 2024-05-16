@@ -67,6 +67,7 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao registrar o usuário. Por favor, tente novamente mais tarde.");
         }
+
     }
 
     @PostMapping("/login")

@@ -24,13 +24,20 @@ header {
 .header > div, a {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
     text-decoration: none;
 }
 .header > ul {
     display: flex;
     gap: 1.5rem;
     list-style: none;
+    margin: auto;
+    padding: 0;
+
+    a:hover{
+        text-decoration: underline ;
+        color: #999999;
+    }
 }
 h1, h2, h3, h4, h5, h6 {
     color: #1BB99A;
@@ -87,20 +94,34 @@ main {
     align-items: center;
     background-color: #e3f3e3;
     border-radius: 3px;
+    color:  #666666;
+    font-size: 20px;
+    font-weight: 500;
 }
 .main-cards > div, img{
     margin: 24px;
 }
+ .p-faq{
+    color:  #666666;
+    font-size: 18px;
+    font-weight: medium;
+  }
+.faq{
+
+    font-size: 20px;
+    font-weight: 600;
+}
+
 .main-faq {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: start;
     width: 100%;
     margin: 12px auto;
 }
 .main-faq > h3 {
     color: #1BB99A;
-    margin: auto;
+    margin: 18px 0;
 }
 a:link, a:visited, a:hover, a:active {
     text-decoration: none;
