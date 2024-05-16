@@ -7,46 +7,45 @@
 <body>
 <main>
     <h2>
-        ABRIR CHAMADO AQUI
+        ABRIR CHAMADO
     </h2>
-    <p>
-        Um chamado
-        técnico é quando um usuário solicita um atendimento e um técnico
-        assume esse chamado, começando o atendimento e modificando seu
-        status. Cada chamado inclui informações como usuário, setor, descrição,
-        prioridade e data de início.
-    </p>
-    <form class="editForm" action="/criar-chamado" method="post">
-        <div class="editItems">
-            <label for="tituloChamado">Titulo:</label>
-            <input id="tituloChamado" name="tituloChamado"></input>
-        </div>
-        <div class="editItems">
-            <label for="descricao">Descrição:</label>
-            <textarea id="descricao" name="descricao" rows="4" cols="50"></textarea>
-        </div>
-        <div class="editItems">
-            <label for="prioridade">Prioridade:</label>
-            <select id="prioridade" name="prioridade">
-                <option value="Baixa">Baixa</option>
-                <option value="Média">Média</option>
-                <option value="Alta">Alta</option>
-            </select>
-        </div>
+    <div class="card-template">
 
-        <div class="editItems">
-            <div class="form-modal">
-                <label for="setorDeDirecionamento"> Setor responsável </label>
-                <select id="setorDeDirecionamento" name="setorDeDirecionamento">
-                    <option th:each="setorDeDirecionamento : ${T(com.soulcode.demo.models.Sector).values()}"
-                            th:value="${setorDeDirecionamento}"
-                    >
-                        <span th:text="${#strings.capitalize(setorDeDirecionamento.name().replace('_', ' '))}"></span>
-                    </option>
-                </select>
+        <form class="editForm" action="/criar-chamado" method="post" style="
+        align-items: center; gap: 30px;">
+            <div style="display: flex; gap: 30px;">
+                <div>
+                    <div class="editForm">
+                        <label for="tituloChamado">Titulo:</label>
+                        <input id="tituloChamado" name="tituloChamado"></input>
+                    </div>
+                    <div class="editForm">
+                        <label for="descricao">Descrição:</label>
+                        <textarea id="descricao" name="descricao" rows="4" cols="50"></textarea>
+                    </div>
+                </div>
+                <div>
+                    <div class="editForm">
+                        <label for="prioridade">Prioridade:</label>
+                        <select id="prioridade" name="prioridade">
+                            <option value="Baixa">Baixa</option>
+                            <option value="Média">Média</option>
+                            <option value="Alta">Alta</option>
+                        </select>
+                    </div>
+                    <div class="editForm" style="margin-top: 5px">
+                        <label for="setorDeDirecionamento"> Setor responsável </label>
+                        <select id="setorDeDirecionamento" name="setorDeDirecionamento">
+                            <option th:each="setorDeDirecionamento : ${T(com.soulcode.demo.models.Sector).values()}"
+                                    th:value="${setorDeDirecionamento}"
+                            >
+                                <span th:text="${#strings.capitalize(setorDeDirecionamento.name().replace('_', ' '))}"></span>
+                            </option>
+                        </select>
+                    </div>
+
+                </div>
             </div>
-
-            <!-- Adicionando campos ocultos para armazenar as informações do usuário -->
             <input type="hidden" id="usuario" name="usuario" th:value="${param.usuario}">
             <input type="hidden" id="setor" name="setor" th:value="${param.setor}">
 
@@ -56,9 +55,11 @@
                 </script>
             </div>
 
+
             <button class="simple-btn" type="submit">Criar Chamado</button>
-        </div>
-    </form>
+        </form>
+
+    </div>
 </main>
 
 <script>

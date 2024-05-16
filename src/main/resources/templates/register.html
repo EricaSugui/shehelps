@@ -7,37 +7,50 @@
 <body>
 <main>
     <h2>
-        CADASTRAR NOVO USUÁRIO AQUI
+        CADASTRAR NOVO USUÁRIO
     </h2>
     <form action="/cadastro" method="post">
-        <label for="nome">Nome:</label><br>
-        <input type="text" id="nome" name="nome"><br>
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email"><br>
-        <label for="senha">Senha:</label><br>
-        <input type="password" id="senha" name="senha"><br>
-        <label for="confirmacaoSenha">Confirmação de Senha:</label><br>
-        <input type="password" id="confirmacaoSenha" name="confirmacaoSenha"><br><br>
-        <label for="tipoUsuario">Tipo de Usuário:</label><br>
-        <select id="tipoUsuario" name="tipoUsuario">
-            <option value="">--Selecione o tipo de acesso--</option>
-            <option value="USUARIO">Usuário</option>
-            <option value="ADMINISTRADOR">Administrador</option>
-            <option value="TECNICO">Técnico</option>
-        </select><br><br>
-        <label for="Setor">Setor:</label><br>
-        <select id="Setor" name="setor">
-            <option value="">--Selecione o seu departamento--</option>
-            <option value="Administracao" >Administração</option>
-            <option value="Recursos_Humanos">Recursos Humanos</option>
-            <option value="Financeiro">Financeiro</option>
-            <option value="Vendas">Vendas</option>
-            <option value="Marketing">Marketing</option>
-            <option value="Producao">Produção</option>
-            <option value="TI">Tecnologia da Informação</option>
-            <option value="Juridico">Jurídico</option>
-            <option value="Logistica">Logística</option>
-        </select><br><br>
+        <div style="display: flex; flex-direction: row">
+
+            <div>
+                <label for="nome">Nome:</label><br>
+                <input type="text" id="nome" name="nome"><br>
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email"><br>
+                <label for="senha">Senha:</label><br>
+                <input type="password" id="senha" name="senha"><br>
+                <label for="confirmacaoSenha">Confirmação de Senha:</label><br>
+                <input type="password" id="confirmacaoSenha" name="confirmacaoSenha"><br><br>
+            </div>
+
+            <div style="margin-left: 50px; display: flex; flex-direction: column">
+                <div>
+
+                    <label for="tipoUsuario">Tipo de Usuário:</label><br>
+                    <select id="tipoUsuario" name="tipoUsuario">
+                        <option value="">--Selecione o tipo de acesso--</option>
+                        <option value="USUARIO">Usuário</option>
+                        <option value="ADMINISTRADOR">Administrador</option>
+                        <option value="TECNICO">Técnico</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="Setor">Setor:</label><br>
+                    <select id="Setor" name="setor">
+                        <option value="">--Selecione o seu departamento--</option>
+                        <option value="Administracao">Administração</option>
+                        <option value="Recursos_Humanos">Recursos Humanos</option>
+                        <option value="Financeiro">Financeiro</option>
+                        <option value="Vendas">Vendas</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Producao">Produção</option>
+                        <option value="TI">Tecnologia da Informação</option>
+                        <option value="Juridico">Jurídico</option>
+                        <option value="Logistica">Logística</option>
+                    </select>
+                </div>
+            </div>
+        </div>
 
         <button class="simple-btn" type="submit">Cadastrar</button>
     </form>
