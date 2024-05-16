@@ -2,8 +2,7 @@
 <html lang="en" th:replace="~{base :: layout (~{:: main})}">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro de Usuário</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Title</title>
 </head>
 <body>
 <main style="align-items: center; justify-items: center;">
@@ -43,29 +42,5 @@
         </form>
     </div>
 </main>
-
-<script>
-    $(document).ready(function () {
-        console.log("jQuery carregado e pronto.");  // Verifica se o jQuery foi carregado
-        $('#cadastroForm').on('submit', function (event) {
-            event.preventDefault();
-            console.log("Formulário enviado.");  // Verifica se o formulário foi enviado
-
-            $.ajax({
-                url: '/cadastro',
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function (response) {
-                    console.log("Resposta de sucesso recebida:", response);  // Exibe a resposta de sucesso no console
-                    alert("Sucesso: " + response);
-                },
-                error: function (xhr) {
-                    console.log("Resposta de erro recebida:", xhr.responseText);  // Exibe a resposta de erro no console
-                    alert("Erro: " + xhr.responseText);
-                }
-            });
-        });
-    });
-</script>
 </body>
 </html>
