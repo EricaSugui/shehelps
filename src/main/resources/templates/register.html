@@ -2,13 +2,14 @@
 <html lang="en" th:replace="~{base :: layout (~{:: main})}">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro de Usuário</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Title</title>
 </head>
 <body>
 <main>
-    <h2>CADASTRAR NOVO USUÁRIO</h2>
-    <form id="cadastroForm">
+    <h2>
+        CADASTRAR NOVO USUÁRIO
+    </h2>
+    <form action="/cadastro" method="post">
         <label for="nome">Nome:</label><br>
         <input type="text" id="nome" name="nome"><br>
         <label for="email">Email:</label><br>
@@ -24,10 +25,10 @@
             <option value="ADMINISTRADOR">Administrador</option>
             <option value="TECNICO">Técnico</option>
         </select><br><br>
-        <label for="setor">Setor:</label><br>
-        <select id="setor" name="setor">
+        <label for="Setor">Setor:</label><br>
+        <select id="Setor" name="setor">
             <option value="">--Selecione o seu departamento--</option>
-            <option value="Administracao">Administração</option>
+            <option value="Administracao" >Administração</option>
             <option value="Recursos_Humanos">Recursos Humanos</option>
             <option value="Financeiro">Financeiro</option>
             <option value="Vendas">Vendas</option>
@@ -41,29 +42,5 @@
         <button class="simple-btn" type="submit">Cadastrar</button>
     </form>
 </main>
-
-<script>
-    $(document).ready(function () {
-        console.log("jQuery carregado e pronto.");  // Verifica se o jQuery foi carregado
-        $('#cadastroForm').on('submit', function (event) {
-            event.preventDefault();
-            console.log("Formulário enviado.");  // Verifica se o formulário foi enviado
-
-            $.ajax({
-                url: '/cadastro',
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function (response) {
-                    console.log("Resposta de sucesso recebida:", response);  // Exibe a resposta de sucesso no console
-                    alert("Sucesso: " + response);
-                },
-                error: function (xhr) {
-                    console.log("Resposta de erro recebida:", xhr.responseText);  // Exibe a resposta de erro no console
-                    alert("Erro: " + xhr.responseText);
-                }
-            });
-        });
-    });
-</script>
 </body>
 </html>
