@@ -36,7 +36,7 @@ public class AuthenticationController {
                                        @RequestParam String senha,
                                        @RequestParam String confirmacaoSenha,
                                        @RequestParam TypeUser tipoUsuario,
-                                       @RequestParam String setor) { // Corrigindo o nome do parâmetro para 'setor'
+                                       @RequestParam String setor) {
 
         Sector sectorEnum = Sector.valueOf(setor);
 
