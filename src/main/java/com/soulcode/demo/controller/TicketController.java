@@ -52,7 +52,7 @@ public class TicketController {
         String email = (String) session.getAttribute("email");
         Sector setor = (Sector) session.getAttribute("setor");
 
-        ticketService.createTicket(tituloChamado,descricao, prioridade, setorDeDirecionamento, nomeUsuario, setor, email);
+        ticketService.createTicket(tituloChamado, descricao, prioridade, setorDeDirecionamento, nomeUsuario, setor, email);
         redirectAttributes.addAttribute("mensagem", "Chamado criado com sucesso!");
 
         return "redirect:/user";
@@ -82,7 +82,7 @@ public class TicketController {
     }
 
     @GetMapping("/user-tickets")
-    public String userAwaitingTechnicianTickets(Model model, Principal principal, HttpSession session ) {
+    public String userAwaitingTechnicianTickets(Model model, Principal principal, HttpSession session) {
 
         String email = (String) session.getAttribute("email");
 
@@ -101,19 +101,20 @@ public class TicketController {
         return "editUserTicket";
     }
 
-    @PostMapping("/edit-user-tickets")
+    @PostMapping("/user")
     public String updateUserTicket(@RequestParam("id") Long id, @ModelAttribute("ticket") Ticket chamado, RedirectAttributes redirectAttributes) {
         Ticket existingChamado = ticketRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("ID de chamado inválido: " + id));
 
         existingChamado.setDescricao(chamado.getDescricao());
+        System.out.println("descricao" + chamado.getDescricao());
         existingChamado.setPrioridade(chamado.getPrioridade());
         existingChamado.setSetor(chamado.getSetor());
 
         ticketRepository.save(existingChamado);
 
         redirectAttributes.addAttribute("mensagem", "Chamado atualizado com sucesso!");
-        return "redirect:/user-tickets";
+        return "redirect:/user";
     }
 }
 
