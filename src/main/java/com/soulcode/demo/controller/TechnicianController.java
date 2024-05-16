@@ -19,6 +19,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.soulcode.demo.models.Status.Escalado_para_outro_setor;
+
 @SessionAttributes("usuarioLogado")
 @Controller
 public class TechnicianController {
@@ -95,7 +97,14 @@ public class TechnicianController {
             chamado.setTecnicoAtribuido(usuarioLogado.getNome());
         }
 
-        chamado.setStatus(aberto.getStatus());
+        if (!aberto.getSetorDeDirecionamento().equals(chamado.getSetorDeDirecionamento()) &&
+                aberto.getStatus().equals(chamado.getStatus())) {
+            chamado.setStatus(Escalado_para_outro_setor);
+        } else {
+            chamado.setStatus(aberto.getStatus());
+        }
+
+
         chamado.setSetorDeDirecionamento(aberto.getSetorDeDirecionamento());
         chamado.setRespostaTecnico(aberto.getRespostaTecnico());
 

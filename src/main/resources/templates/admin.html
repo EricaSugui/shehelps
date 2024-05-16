@@ -14,8 +14,6 @@
         PAINEL DO ADMIN
     </h2>
 
-
-    <h1> Chamados criados </h1>
     <div style="display: flex; flex-direction: row; justify-content: space-around; gap: 20px;">
         <div class="tickets open">
             <p>Em Aberto: </p>
@@ -32,10 +30,11 @@
             <p th:text="${contagemStatusFinalizado}"></p>
         </div>
     </div>
-
+    <h2> Chamados criados </h2>
     <table class="table table-striped table-hover">
         <thead>
         <tr>
+            <th>ID</th>
             <th>Nome</th>
             <th>Título</th>
             <th>Setor</th>
@@ -45,6 +44,7 @@
         </tr>
         </thead>
         <tr th:each="item : ${items}">
+            <td th:text="${item.id}"></td>
             <td th:text="${item.nome}"></td>
             <td th:text="${item.tituloChamado}"></td>
             <td th:text="${item.setorDeDirecionamento}"></td>
