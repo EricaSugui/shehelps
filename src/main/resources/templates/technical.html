@@ -65,7 +65,6 @@
                            <input type="hidden" name="nome" th:value="${aberto.nome}">
                            <input type="hidden" name="email" th:value="${aberto.email}">
                            <input type="hidden" name="setor" th:value="${aberto.setor}">
-                           <input type="hidden" name="respostaTecnico" th:value="${aberto.respostaTecnico}">
                            <input type="hidden" name="prioridade" th:value="${aberto.prioridade}">
                            <input type="hidden" name="dataSolicitacaoAtual" th:value="${aberto.dataSolicitacaoAtual}">
                            <div class=" modal fade " th:attrappend="id=${aberto.id}" id="modalDetalhesTicket1" tabindex="-1"
@@ -117,9 +116,11 @@
                                            </div>
 
                                            <div class="form-modal">
-                                               <p for="comentarioecnico"> Comentário do Técnico </p>
+                                               <p for="respostaTecnico"> Comentário do Técnico </p>
                                                <div class="form-floating">
-                                                   <textarea class="form-control" name="comentarioTecnico" placeholder="Comentário do técnico"></textarea>
+                                                <textarea class="form-control"
+                                                          name="respostaTecnico" placeholder="Comentário do técnico"
+                                                          th:text="${aberto.respostaTecnico}"></textarea>
                                                </div>
                                            </div>
 
@@ -192,7 +193,6 @@
                             <input type="hidden" name="nome" th:value="${aberto.nome}">
                             <input type="hidden" name="email" th:value="${aberto.email}">
                             <input type="hidden" name="setor" th:value="${aberto.setor}">
-                            <input type="hidden" name="respostaTecnico" th:value="${aberto.respostaTecnico}">
                             <input type="hidden" name="prioridade" th:value="${aberto.prioridade}">
                             <input type="hidden" name="dataSolicitacaoAtual" th:value="${aberto.dataSolicitacaoAtual}">
                         <div class=" modal fade " th:attrappend="id=${aberto.id}" id="modalDetalhesTicket" tabindex="-1"
@@ -244,10 +244,11 @@
                                         </div>
 
                                         <div class="form-modal">
-                                            <p for="comentarioecnico"> Comentário do Técnico </p>
+                                            <p for="respostaTecnico"> Comentário do Técnico </p>
                                             <div class="form-floating">
                                                 <textarea class="form-control"
-                                                          id="respostaTecnico" name="respostaTecnico" placeholder="Comentário do técnico"></textarea>
+                                                          id="respostaTecnico" name="respostaTecnico" placeholder="Comentário do técnico"
+                                                          th:text="${aberto.respostaTecnico}"></textarea>
                                             </div>
                                         </div>
 

@@ -36,7 +36,7 @@ public class TechnicianController {
     @GetMapping("/technical")
     public String telaTecnico(Model model, HttpSession session,@ModelAttribute("filtroSetor") Ticket filtroSetor) {
         Persona usuario = (Persona) session.getAttribute("usuarioLogado");
-        if (usuario == null || !usuario.getTipo().equals(TypeUser.TECNICO)) {
+        if (usuario == null || usuario.getTipo().equals(TypeUser.USUARIO)) {
             return "redirect:/login";
         }
 
@@ -84,7 +84,7 @@ public class TechnicianController {
     }
     
     @PostMapping("/technical")
-    public String tratarChamado(@RequestParam("id")Long id, @ModelAttribute("ticket") Ticket aberto,@RequestParam("respostaTecnico")String respostaTecnico ,HttpSession session,RedirectAttributes redirectAttributes){
+    public String tratarChamado(@RequestParam("id")Long id, @ModelAttribute("ticket") Ticket aberto, HttpSession session,RedirectAttributes redirectAttributes){
         Ticket chamado = ticketRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("ID de chamado inválido: " + id));
 
@@ -97,7 +97,7 @@ public class TechnicianController {
 
         chamado.setStatus(aberto.getStatus());
         chamado.setSetorDeDirecionamento(aberto.getSetorDeDirecionamento());
-        chamado.setRespostaTecnico(respostaTecnico);
+        chamado.setRespostaTecnico(aberto.getRespostaTecnico());
 
 
 

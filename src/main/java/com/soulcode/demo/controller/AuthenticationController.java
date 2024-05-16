@@ -61,6 +61,7 @@ public class AuthenticationController {
             autenticacaoService.registerNewUser(nome, email, senha, tipoUsuario, sectorEnum);
             logger.info("Usuário registrado com sucesso: " + email);
             return ResponseEntity.ok("Usuário registrado com sucesso.");
+
         } catch (Exception e) {
             logger.error("Erro ao registrar o usuário.", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -93,7 +94,6 @@ public class AuthenticationController {
             session.setAttribute("usuarioLogado", usuario);
             session.setAttribute("email", loginEmail);
 
-            // Redirecionar com base no tipo de usuário
             switch (tipoUsuario) {
                 case USUARIO:
                     return new RedirectView("/user");

@@ -5,35 +5,31 @@
     <title>Title</title>
 </head>
 <body>
-<main>
-    <h2>
-        LOGIN PAGE
-    </h2>
-    <p>
-        A tela de login deve conter a possibilidade de logar no sistema e também como se
-        cadastrar (usuário e técnico).
-        ○ Utilizar a verificação de login para entrar no sistema - somente usuários
-        cadastrados podem entrar no sistema, ou devem ser cadastrados.
-        ○ Utilizar banco de dados MySQL.
-    </p>
-    <form action="/login" method="post">
-        <label for="loginEmail">Email:</label><br>
-        <input type="email" id="loginEmail" name="loginEmail"><br>
-        <label for="loginSenha">Senha:</label><br>
-        <input type="password" id="loginSenha" name="loginSenha"><br><br>
-        <label for="tipoUsuario">Tipo de Usuário:</label><br>
-        <select id="tipoUsuario" name="tipoUsuario">
-            <option value="USUARIO">Usuário</option>
-            <option value="ADMINISTRADOR">Administrador</option>
-            <option value="TECNICO">Técnico</option>
-        </select><br><br>
-        <button class="simple-btn" type="submit">Login</button>
-    </form>
+<main style="align-items: center; justify-items: center;">
+    <div class="card-template" style="width: 400px;" >
+        <h2>
+            LOGIN
+        </h2>
+        <form action="/login" method="post">
+            <label for="loginEmail">Email:</label><br>
+            <input type="email" id="loginEmail" name="loginEmail"><br>
+            <label for="loginSenha">Senha:</label><br>
+            <input type="password" id="loginSenha" name="loginSenha"><br><br>
+            <label for="tipoUsuario">Tipo de Usuário:</label><br>
+            <select id="tipoUsuario" name="tipoUsuario">
+                <option value="USUARIO">Usuário</option>
+                <option value="ADMINISTRADOR">Administrador</option>
+                <option value="TECNICO">Técnico</option>
+            </select><br><br>
+            <button class="simple-btn" type="submit" style="width: 100%;">Login</button>
+        </form>
+    </div>
     <script>
         $('.toast').toast('show');
     </script>
     <div th:if="${param.error}">
-        <div class="toast ml-auto" role="alert" aria-live="assertive" aria-atomic="true"  data-delay="1000" data-autohide="true" >
+        <div class="toast ml-auto" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1000"
+             data-autohide="true">
             <div class="toast-header">
                 <img src="/assets/operator_64.png" class="rounded mr-2" alt="...">
                 <strong class="mr-auto">SheHelps</strong>

@@ -15,9 +15,6 @@ public class PublicController {
         return "faq";
     }
 
-    /** a partir daqui, colocar essas rotas onde
-     * for mais conveniente.
-     * */
     @GetMapping("/login")
     public String login() {
         return "login";
