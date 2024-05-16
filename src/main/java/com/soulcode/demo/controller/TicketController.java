@@ -107,6 +107,7 @@ public class TicketController {
                 .orElseThrow(() -> new IllegalArgumentException("ID de chamado inválido: " + id));
 
         existingChamado.setDescricao(chamado.getDescricao());
+        System.out.println("descricao" + chamado.getDescricao());
         existingChamado.setPrioridade(chamado.getPrioridade());
         existingChamado.setSetor(chamado.getSetor());
 

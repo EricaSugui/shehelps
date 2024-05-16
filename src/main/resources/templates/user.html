@@ -51,7 +51,7 @@
                 </button>
                 <form id="form-salvar-chamado" action="/user" method="post">
                     <input type="hidden" name="id" th:value="${ticket.id}">
-                    <input type="hidden" name="descricao" th:value="${ticket.descricao}">
+
                     <div class=" modal fade " th:attrappend="id=${ticket.id}" id="modalDetalhesTicket" tabindex="-1"
                          role="dialog"
                          aria-labelledby="exampleModalLabel"
