@@ -62,6 +62,11 @@ select, textarea, input {
     border: 2px solid #1BB99A;
     padding: 5px;
 }
+.text-nowrap{
+    text-wrap: nowrap;
+    width: 150px;
+}
+
 .login-btn {
     background-color: #1BB99A;
     color: white;
@@ -112,18 +117,18 @@ a:link, a:visited, a:hover, a:active {
     padding: 4px 0;
     border-radius: 8px;
 }
+.doing {
+        background-color: #6a737d; /* Cinza */
+        color: white;
+    }
+.done {
+        background-color: #2188B6; /* Azul */
+        color: white;
+    }
 .open {
-    background-color: yellow;
-    color: black;
-}
-.doing{
-    background-color: green;
-    color: white;
-}
-.done{
-    background-color: blue;
-    color: white;
-}
+        background-color: #E5E5E5; /* Cinza Claro */
+        color: #333; /* Cinza Escuro */
+    }
 .modal-body{
     display: flex;
     flex-direction: column;

@@ -53,6 +53,9 @@ public class TechnicianController {
                 .collect(Collectors.toList());
 
         model.addAttribute("andamentos", ticketsDoSetor);
+
+        int contagemStatusEmAndamento = ticketsDoSetor.size();
+        model.addAttribute("contagemStatusEmAndamento", contagemStatusEmAndamento);
 // Finalizados
         List<Ticket> ticketsDoTecnico = ticketRepository.findByStatus(Status.Finalizado);
 
@@ -61,6 +64,9 @@ public class TechnicianController {
                 .collect(Collectors.toList());
 
         model.addAttribute("items", ticketsDoSetor2);
+
+        int finalizados = ticketsDoSetor2.size();
+        model.addAttribute("finalizados", finalizados);
 // Abertos
         List<Ticket> ticketsAguardandoTecnico = ticketRepository.findByStatusIn(Arrays.asList(Status.Aguardando_técnico, Status.Escalado_para_outro_setor));
 
@@ -69,6 +75,9 @@ public class TechnicianController {
                 .collect(Collectors.toList());
 
         model.addAttribute("abertos", ticketsAguardandoTecnicoDoSetor);
+
+        int aberto = ticketsAguardandoTecnicoDoSetor.size();
+        model.addAttribute("aberto", aberto);
 
         return "technical";
 
