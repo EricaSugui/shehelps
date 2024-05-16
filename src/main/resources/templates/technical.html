@@ -46,7 +46,7 @@
                     <td th:text="${aberto.setorDeDirecionamento}"></td>
                     <td th:text="${aberto.tecnicoAtribuido}"></td>
                     <td th:text="${aberto.status}"></td>
-                   <td> <button type="button" class="simple-btn" data-toggle="modal" data-target="#modalDetalhesTicket1"
+                   <td> <button type="button" class="simple-btn text-nowrap" data-toggle="modal" data-target="#modalDetalhesTicket1"
                                 th:attrappend="data-target=${aberto.id}">
                        Ver detalhes
                    </button>
@@ -175,7 +175,7 @@
                     <td th:text="${aberto.setorDeDirecionamento}"></td>
                     <td th:text="${aberto.status}"></td>
                     <td>
-                        <button type="button" class="simple-btn" data-toggle="modal" data-target="#modalDetalhesTicket"
+                        <button type="button" class="simple-btn text-nowrap" data-toggle="modal" data-target="#modalDetalhesTicket"
                                 th:attrappend="data-target=${aberto.id}">
                             Ver detalhes
                         </button>

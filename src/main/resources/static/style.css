@@ -61,6 +61,11 @@ select, textarea, input {
     border: 2px solid #1BB99A;
     padding: 7px;
 }
+.text-nowrap{
+    text-wrap: nowrap;
+    width: 150px;
+}
+
 .login-btn {
     background-color: #1BB99A;
     color: white;
