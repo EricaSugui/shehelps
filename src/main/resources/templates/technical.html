@@ -13,13 +13,22 @@
     <h2 style="white-space: nowrap;">
         Bem-vindo (a), <span th:text="${usuarioNome}"></span>
     </h2>
-    <p>
-        ● Na tela do técnico, ele pode visualizar os chamados que estão disponíveis
-        para serem atendidos e os chamados que já estão atribuídos a ele.
-        ● Ao clicar em um chamado, o técnico pode visualizar as informações
-        detalhadas e modificar o status do chamado para "Aguardando técnico",
-        "Em atendimento", "Escalado para outro setor" ou "Finalizado".
-    </p>
+    <div style="display: flex ; flex-direction: row; justify-content: space-around; gap: 20px">
+        <div class="tickets doing">
+            <p>Em andamento: </p>
+            <p th:text="${contagemStatusEmAndamento}"></p>
+        </div>
+
+        <div class="tickets done">
+            <p>Finalizados: </p>
+            <p th:text="${finalizados}"></p>
+        </div>
+
+        <div class="tickets open">
+            <p>Disponíveis: </p>
+            <p th:text="${aberto}"></p>
+        </div>
+    </div>
 
     <div class="main flex-column">
         <div><h1> Seus chamados em andamento: </h1></div>
@@ -59,7 +68,6 @@
                            <input type="hidden" name="respostaTecnico" th:value="${aberto.respostaTecnico}">
                            <input type="hidden" name="prioridade" th:value="${aberto.prioridade}">
                            <input type="hidden" name="dataSolicitacaoAtual" th:value="${aberto.dataSolicitacaoAtual}">
-                           <input type="hidden" name="setorDeDirecionamento" th:value="${aberto.setorDeDirecionamento}">
                            <div class=" modal fade " th:attrappend="id=${aberto.id}" id="modalDetalhesTicket1" tabindex="-1"
                                 role="dialog"
                                 aria-labelledby="exampleModalLabel"
@@ -187,7 +195,6 @@
                             <input type="hidden" name="respostaTecnico" th:value="${aberto.respostaTecnico}">
                             <input type="hidden" name="prioridade" th:value="${aberto.prioridade}">
                             <input type="hidden" name="dataSolicitacaoAtual" th:value="${aberto.dataSolicitacaoAtual}">
-                            <input type="hidden" name="setorDeDirecionamento" th:value="${aberto.setorDeDirecionamento}">
                         <div class=" modal fade " th:attrappend="id=${aberto.id}" id="modalDetalhesTicket" tabindex="-1"
                              role="dialog"
                              aria-labelledby="exampleModalLabel"
