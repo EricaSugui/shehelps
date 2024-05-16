@@ -37,6 +37,7 @@ public class UserController {
         }
 
         String email = usuario.getEmail();
+        String nomeUsuario = usuario.getNome();
 
 
         List<Ticket> userTickets = ticketService.getTicketsByEmail(email);
@@ -50,6 +51,7 @@ public class UserController {
 
         model.addAttribute("tickets", userTickets);
         model.addAttribute("filterStatus", status);
+        model.addAttribute("nomeUsuario", nomeUsuario);
 
         return "user";
     }
