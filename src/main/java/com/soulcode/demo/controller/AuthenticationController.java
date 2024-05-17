@@ -9,8 +9,6 @@ import com.soulcode.demo.service.AuthenticationService;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,13 +30,15 @@ public class AuthenticationController {
     TypeRepository typeRepository;
 
     @PostMapping("/cadastro")
-    public String save(@RequestParam String nome,
-                       @RequestParam String email,
-                       @RequestParam String senha,
-                       @RequestParam String confirmacaoSenha,
-                       @RequestParam TypeUser tipoUsuario,
-                       @RequestParam String setor,
-                       Model model) {
+    public RedirectView save(@RequestParam String nome,
+                             @RequestParam String email,
+                             @RequestParam String senha,
+                             @RequestParam String confirmacaoSenha,
+                             @RequestParam TypeUser tipoUsuario,
+                             @RequestParam String setor,
+                             Model model,
+                             RedirectAttributes redirectAttributes,
+                             HttpSession session) {
 
         Sector sectorEnum = Sector.valueOf(setor);
 
@@ -47,27 +47,27 @@ public class AuthenticationController {
         if (nome == null || email == null || senha == null || setor == null) {
             logger.error("Nome, email, senha e setor são obrigatórios.");
 
-            return "redirect:/register?error=Nome, email, senha e setor são obrigatorios.";
+            return new RedirectView("/register?error=Nome, email, senha e setor sao obrigatorios.");
         }
 
         if (autenticacaoService.checkIfEmailAlreadyExists(email)) {
             logger.error("Este email já foi utilizado. Por favor, digite outro email.");
-            return "redirect:/register?error=Este email já foi utilizado. Por favor, digite outro email.";
+            return new RedirectView("/register?error=Este email ja foi utilizado. Por favor, digite outro email.");
         }
 
         if (!autenticacaoService.confirmedPassword(senha, confirmacaoSenha)) {
             logger.error("As senhas não correspondem.");
-            return "redirect:/register?error=As senhas não correspondem.";
+            return new RedirectView("/register?error=As senhas nao correspondem.");
         }
 
         try {
             autenticacaoService.registerNewUser(nome, email, senha, tipoUsuario, sectorEnum);
-            logger.info("Usuário registrado com sucesso: " + email);
-            return "redirect:/login";
+            logger.info("Usuario registrado com sucesso: " + email);
+            return new RedirectView("/login");
 
         } catch (Exception e) {
-            logger.error("Erro ao registrar o usuário.", e);
-            return "redirect:/register?error=Erro ao registrar o usuário.";
+            logger.error("Erro ao registrar o usuario.", e);
+            return new RedirectView("/register?error=Erro ao registrar o usuario.");
         }
 
     }
