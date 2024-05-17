@@ -115,5 +115,6 @@ public class TicketController {
         redirectAttributes.addAttribute("mensagem", "Chamado atualizado com sucesso!");
         return "redirect:/user";
     }
+
 }
 

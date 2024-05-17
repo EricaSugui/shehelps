@@ -122,10 +122,5 @@ public class TechnicianController {
     private void orElseThrow(Object o) {
     }
 
-    @GetMapping("/technical-teste")
-    public List<Persona> getTecnicos() {
-        return personaRepository.findAll();
-    }
-
 
 }

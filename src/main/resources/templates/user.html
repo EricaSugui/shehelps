@@ -51,7 +51,7 @@
             <td>
                 <button type="button" class="simple-btn" data-toggle="modal" data-target="#modalDetalhesTicket"
                         th:attrappend="data-target=${ticket.id}">
-                    Editar
+                    Detalhes
                 </button>
                 <form id="form-salvar-chamado" action="/user" method="post">
                     <input type="hidden" name="id" th:value="${ticket.id}">
@@ -113,13 +113,21 @@
                                             </option>
                                         </select>
                                     </div>
+                                    <div class="form-modal">
+                                        <p> Técnico </p>
+                                        <div th:text="${ticket.tecnicoAtribuido}"></div>
+                                    </div>
+                                    <div class="form-modal">
+                                        <p> Resposta do técnico </p>
+                                        <div th:text="${ticket.respostaTecnico}"></div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="login-btn">Salvar</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="login-btn">Salvar</button>
-
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar
-                                    </button>
-                                </div>
+                            </div>
 
                             </div>
 
