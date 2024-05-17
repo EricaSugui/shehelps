@@ -57,7 +57,6 @@ public class TicketService {
     }
 
     public List<Ticket> getTicketsByEmailAndStatus(String email, Status status) {
-        // Busca os chamados pelo email do usuário e pelo status especificado
         return ticketRepository.findByEmailAndStatus(email, status);
     }
 
