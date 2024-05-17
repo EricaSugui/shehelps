@@ -12,8 +12,8 @@ public class PublicController {
     public String index(Model model, HttpSession session) {
 
         Persona usuario = (Persona) session.getAttribute("usuarioLogado");
-        boolean usuarioLogado = usuario != null;
-        model.addAttribute("usuarioLogado", usuarioLogado);
+        boolean verificacaoUser = usuario != null;
+        model.addAttribute("verificacaoUser", verificacaoUser);
 
         return "index";
     }

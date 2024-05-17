@@ -26,11 +26,11 @@
         </ul>
         <div>
 
-            <button th:if="${usuarioLogado}" onclick="window.location.href='/sair';" class="login-btn">Sair</button>
+            <button th:if="${verificacaoUser}" onclick="window.location.href='/sair';" class="login-btn">Sair</button>
         </div>
 
 
-        <div th:unless="${usuarioLogado}">
+        <div th:unless="${verificacaoUser}">
             <button onclick="window.location.href='/login';" class="login-btn">Entrar</button>
             <button onclick="window.location.href='/register';" class="simple-btn">Criar Conta</button>
         </div>

@@ -46,8 +46,8 @@ public class AdmController {
 
         model.addAttribute("usuario", usuario);
 
-        boolean usuarioLogado = usuario != null;
-        model.addAttribute("usuarioLogado", usuarioLogado);
+        boolean verificacaoUser = usuario != null;
+        model.addAttribute("verificacaoUser", verificacaoUser);
 
         List<Ticket> items;
         if ((prioridade != null && !prioridade.isEmpty()) && (setorDeDirecionamento != null && !setorDeDirecionamento.isEmpty())) {
