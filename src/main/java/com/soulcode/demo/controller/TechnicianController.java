@@ -45,7 +45,7 @@ public class TechnicianController {
         model.addAttribute("setorDoUsuario", setorDoUsuario);
         model.addAttribute("usuarioNome", usuario.getNome());
 
-// Em andamento
+
         List<Ticket> ticketsDoTecnicoEmAndamento = ticketRepository.findByStatus(Status.Em_atendimento);
 
         List<Ticket> ticketsDoSetor = ticketsDoTecnicoEmAndamento.stream()
@@ -56,7 +56,7 @@ public class TechnicianController {
 
         int contagemStatusEmAndamento = ticketsDoSetor.size();
         model.addAttribute("contagemStatusEmAndamento", contagemStatusEmAndamento);
-// Finalizados
+
         List<Ticket> ticketsDoTecnico = ticketRepository.findByStatus(Status.Finalizado);
 
         List<Ticket> ticketsDoSetor2 = ticketsDoTecnico.stream()
@@ -67,7 +67,7 @@ public class TechnicianController {
 
         int finalizados = ticketsDoSetor2.size();
         model.addAttribute("finalizados", finalizados);
-// Abertos
+
         List<Ticket> ticketsAguardandoTecnico = ticketRepository.findByStatusIn(Arrays.asList(Status.Aguardando_técnico, Status.Escalado_para_outro_setor));
 
         List<Ticket>ticketsAguardandoTecnicoDoSetor = ticketsAguardandoTecnico.stream()

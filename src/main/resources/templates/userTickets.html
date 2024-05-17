@@ -20,7 +20,7 @@
         </tr>
         </thead>
         <tbody>
-        <!-- Loop sobre os chamados aguardando técnico -->
+
         <tr th:each="ticket : ${tickets}">
             <td th:text="${ticket.id}"></td>
             <td th:text="${ticket.tituloChamado}"></td>
@@ -29,7 +29,7 @@
             <td th:text="${ticket.setorDeDirecionamento}"></td>
             <td th:text="${ticket.status}"></td>
             <td>
-                <!-- Link para editar o chamado -->
+
                 <a th:href="@{'/edit-user-ticket/' + ${ticket.id}}">Editar</a>
             </td>
 

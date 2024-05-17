@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,12 +32,13 @@ public class AuthenticationController {
     TypeRepository typeRepository;
 
     @PostMapping("/cadastro")
-    public ResponseEntity<Object> save(@RequestParam String nome,
-                                       @RequestParam String email,
-                                       @RequestParam String senha,
-                                       @RequestParam String confirmacaoSenha,
-                                       @RequestParam TypeUser tipoUsuario,
-                                       @RequestParam String setor) { // Corrigindo o nome do parâmetro para 'setor'
+    public String save(@RequestParam String nome,
+                       @RequestParam String email,
+                       @RequestParam String senha,
+                       @RequestParam String confirmacaoSenha,
+                       @RequestParam TypeUser tipoUsuario,
+                       @RequestParam String setor,
+                       Model model) {
 
         Sector sectorEnum = Sector.valueOf(setor);
 
@@ -44,28 +46,31 @@ public class AuthenticationController {
 
         if (nome == null || email == null || senha == null || setor == null) {
             logger.error("Nome, email, senha e setor são obrigatórios.");
-            return ResponseEntity.badRequest().body("Por favor, preencha todos os campos obrigatórios.");
+            model.addAttribute("errorMessage", "Por favor, preencha todos os campos obrigatórios.");
+            return "cadastro";
         }
 
         if (autenticacaoService.checkIfEmailAlreadyExists(email)) {
             logger.error("Este email já foi utilizado. Por favor, digite outro email.");
-            return ResponseEntity.badRequest().body("Este email já foi utilizado. Por favor, digite outro email.");
+            model.addAttribute("errorMessage", "Este email já foi utilizado. Por favor, digite outro email.");
+            return "cadastro";
         }
 
         if (!autenticacaoService.confirmedPassword(senha, confirmacaoSenha)) {
             logger.error("As senhas não correspondem.");
-            return ResponseEntity.badRequest().body("As senhas não correspondem.");
+            model.addAttribute("errorMessage", "As senhas não correspondem.");
+            return "cadastro";
         }
 
         try {
             autenticacaoService.registerNewUser(nome, email, senha, tipoUsuario, sectorEnum);
             logger.info("Usuário registrado com sucesso: " + email);
-            return ResponseEntity.ok("Usuário registrado com sucesso.");
+            return "redirect:/login";
 
         } catch (Exception e) {
             logger.error("Erro ao registrar o usuário.", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Erro ao registrar o usuário. Por favor, tente novamente mais tarde.");
+            model.addAttribute("errorMessage", "Erro ao registrar o usuário. Por favor, tente novamente mais tarde.");
+            return "cadastro";
         }
     }
 
