@@ -46,20 +46,18 @@ public class AuthenticationController {
 
         if (nome == null || email == null || senha == null || setor == null) {
             logger.error("Nome, email, senha e setor são obrigatórios.");
-            model.addAttribute("errorMessage", "Por favor, preencha todos os campos obrigatórios.");
-            return "cadastro";
+
+            return "redirect:/register?error=Nome, email, senha e setor são obrigatorios.";
         }
 
         if (autenticacaoService.checkIfEmailAlreadyExists(email)) {
             logger.error("Este email já foi utilizado. Por favor, digite outro email.");
-            model.addAttribute("errorMessage", "Este email já foi utilizado. Por favor, digite outro email.");
-            return "cadastro";
+            return "redirect:/register?error=Este email já foi utilizado. Por favor, digite outro email.";
         }
 
         if (!autenticacaoService.confirmedPassword(senha, confirmacaoSenha)) {
             logger.error("As senhas não correspondem.");
-            model.addAttribute("errorMessage", "As senhas não correspondem.");
-            return "cadastro";
+            return "redirect:/register?error=As senhas não correspondem.";
         }
 
         try {
@@ -69,8 +67,7 @@ public class AuthenticationController {
 
         } catch (Exception e) {
             logger.error("Erro ao registrar o usuário.", e);
-            model.addAttribute("errorMessage", "Erro ao registrar o usuário. Por favor, tente novamente mais tarde.");
-            return "cadastro";
+            return "redirect:/register?error=Erro ao registrar o usuário.";
         }
 
     }
