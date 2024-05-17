@@ -46,6 +46,9 @@ public class AdmController {
 
         model.addAttribute("usuario", usuario);
 
+        boolean usuarioLogado = usuario != null;
+        model.addAttribute("usuarioLogado", usuarioLogado);
+
         List<Ticket> items;
         if ((prioridade != null && !prioridade.isEmpty()) && (setorDeDirecionamento != null && !setorDeDirecionamento.isEmpty())) {
             Sector setorEnum = Sector.valueOf(setorDeDirecionamento);

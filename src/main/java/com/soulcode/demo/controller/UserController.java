@@ -39,6 +39,8 @@ public class UserController {
         String email = usuario.getEmail();
         String nomeUsuario = usuario.getNome();
 
+        boolean usuarioLogado = usuario != null;
+        model.addAttribute("usuarioLogado", usuarioLogado);
 
         List<Ticket> userTickets = ticketService.getTicketsByEmail(email);
 

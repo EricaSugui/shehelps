@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br" th:fragment="layout (conteudo)">
+<html lang="pt-br" th:fragment="layout (conteudo)" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
 
@@ -25,6 +25,12 @@
             <li><a class="faq" style="color:  #666666;" href="/admin">Admin</a></li>
         </ul>
         <div>
+
+            <button th:if="${usuarioLogado}" onclick="window.location.href='/sair';" class="login-btn">Sair</button>
+        </div>
+
+
+        <div th:unless="${usuarioLogado}">
             <button onclick="window.location.href='/login';" class="login-btn">Entrar</button>
             <button onclick="window.location.href='/register';" class="simple-btn">Criar Conta</button>
         </div>
