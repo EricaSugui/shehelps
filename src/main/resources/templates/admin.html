@@ -30,7 +30,36 @@
             <p th:text="${contagemStatusFinalizado}"></p>
         </div>
     </div>
-    <h2> Chamados criados </h2>
+
+    <h2>Chamados criados</h2>
+
+    <div>
+        <form action="#" th:action="@{/admin}" method="get">
+            <label>Filtrar por:</label>
+            <select name="prioridade">
+                <option value="">Todas Prioridades</option>
+                <option value="Baixa" th:selected="${filtroPropriedade == 'Baixa'}">Baixa</option>
+                <option value="Média" th:selected="${filtroPropriedade == 'Média'}">Média</option>
+                <option value="Alta" th:selected="${filtroPropriedade == 'Alta'}">Alta</option>
+            </select>
+
+            <select name="setorDeDirecionamento">
+                <option value="">Todos Setores</option>
+                <option value="Administracao" th:selected="${filtroSetor == 'Administracao'}">Administracao</option>
+                <option value="Recursos_Humanos" th:selected="${filtroSetor == 'Recursos_Humanos'}">Recursos Humanos</option>
+                <option value="Financeiro" th:selected="${filtroSetor == 'Financeiro'}">Financeiro</option>
+                <option value="Vendas" th:selected="${filtroSetor == 'Vendas'}">Vendas</option>
+                <option value="Marketing" th:selected="${filtroSetor == 'Marketing'}">Marketing</option>
+                <option value="Producao" th:selected="${filtroSetor == 'Producao'}">Producao</option>
+                <option value="TI" th:selected="${filtroSetor == 'TI'}">TI</option>
+                <option value="Juridico" th:selected="${filtroSetor == 'Juridico'}">Juridico</option>
+                <option value="Logistica" th:selected="${filtroSetor == 'Logistica'}">Logistica</option>
+            </select>
+
+            <button class="simple-btn" type="submit">Filtrar</button>
+        </form>
+    </div>
+
     <table class="table table-striped table-hover">
         <thead>
         <tr>
@@ -43,6 +72,7 @@
             <th></th>
         </tr>
         </thead>
+        <tbody>
         <tr th:each="item : ${items}">
             <td th:text="${item.id}"></td>
             <td th:text="${item.nome}"></td>
@@ -50,7 +80,6 @@
             <td th:text="${item.setorDeDirecionamento}"></td>
             <td th:text="${item.prioridade}"></td>
             <td th:text="${item.status}"></td>
-
             <td>
                 <button type="button" class="simple-btn" data-toggle="modal" data-target="#modalDetalhesTicket"
                         th:attrappend="data-target=${item.id}">
@@ -58,32 +87,26 @@
                 </button>
                 <form id="form-salvar-chamado" action="/admin" method="post">
                     <input type="hidden" name="id" th:value="${item.id}">
-                    <div class=" modal fade " th:attrappend="id=${item.id}" id="modalDetalhesTicket" tabindex="-1"
-                         role="dialog"
-                         aria-labelledby="exampleModalLabel"
-
-                         aria-hidden="true">
+                    <div class="modal fade" th:attrappend="id=${item.id}" id="modalDetalhesTicket" tabindex="-1"
+                         role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel"
-                                        style="color: #1BB99A " th:text="${item.tituloChamado}"></h5>
+                                        style="color: #1BB99A" th:text="${item.tituloChamado}"></h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-
                                     <div class="form-modal">
-                                        <p> Título do Chamado </p>
+                                        <p>Título do Chamado</p>
                                         <div th:text="${item.tituloChamado}"></div>
                                     </div>
-
                                     <div class="form-modal">
-                                        <p> Descrição </p>
+                                        <p>Descrição</p>
                                         <div th:text="${item.descricao}"></div>
                                     </div>
-
                                     <div class="form-modal">
                                         <p for="status">Status</p>
                                         <select id="status" name="status">
@@ -94,9 +117,8 @@
                                             </option>
                                         </select>
                                     </div>
-
                                     <div class="form-modal">
-                                        <p for="setorDeDirecionamento"> Setor responsável </p>
+                                        <p for="setorDeDirecionamento">Setor responsável</p>
                                         <select id="setorDeDirecionamento" name="setorDeDirecionamento">
                                             <option th:each="setorDeDirecionamento : ${T(com.soulcode.demo.models.Sector).values()}"
                                                     th:value="${setorDeDirecionamento}"
@@ -108,107 +130,29 @@
                                     <div class="form-modal">
                                         <p for="prioridade">Prioridade:</p>
                                         <select id="prioridade" name="prioridade">
-                                            <option value="Alta" th:selected="${item.prioridade == 'Alta'}">
-                                                Alta
-                                            </option>
-                                            <option value="Média" th:selected="${item.prioridade == 'Média'}">
-                                                Média
-                                            </option>
-                                            <option value="Baixa" th:selected="${item.prioridade == 'Baixa'}">
-                                                Baixa
-                                            </option>
+                                            <option value="Alta" th:selected="${item.prioridade == 'Alta'}">Alta</option>
+                                            <option value="Média" th:selected="${item.prioridade == 'Média'}">Média</option>
+                                            <option value="Baixa" th:selected="${item.prioridade == 'Baixa'}">Baixa</option>
                                         </select>
                                     </div>
                                     <div class="form-modal">
-                                        <p> Comentário do Técnico </p>
+                                        <p>Comentário do Técnico</p>
                                         <div th:text="${item.respostaTecnico}"></div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="login-btn">Salvar</button>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar
-                                    </button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                 </form>
             </td>
         </tr>
-    </table>
-
-    <h2> Filtro por prioridade </h2>
-    <form action="#" th:action="@{/admin}" th:object="${filtroPropriedade}">
-        <select th:field="*{prioridade}">
-            <option value="">Todas</option>
-            <option value="Baixa">Baixa</option>
-            <option value="Média">Média</option>
-            <option value="Alta">Alta</option>
-        </select>
-        <button class="simple-btn" type="submit">Filtrar</button>
-    </form>
-
-
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Título</th>
-            <th>Setor</th>
-            <th>Prioridade</th>
-            <th>Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="ticket : ${ticketsFiltradosPrioridade}">
-            <td th:text="${ticket.nome}"></td>
-            <td th:text="${ticket.tituloChamado}"></td>
-            <td th:text="${ticket.setorDeDirecionamento}"></td>
-            <td th:text="${ticket.prioridade}"></td>
-            <td th:text="${ticket.status}"></td>
-        </tr>
         </tbody>
     </table>
 
-    <h2> Filtro por Setor de Direcionamento </h2>
-    <form action="#" th:action="@{/admin}" th:object="${filtroSetor}">
-        <select th:field="*{setorDeDirecionamento}">
-            <option value="">Todas</option>
-            <option value="Administracao">Administracao</option>
-            <option value="Recursos_Humanos">Recursos_Humanos</option>
-            <option value="Financeiro">Financeiro</option>
-            <option value="Vendas">Vendas</option>
-            <option value="Marketing">Marketing</option>
-            <option value="Producao">Producao</option>
-            <option value="TI">TI</option>
-            <option value="Juridico">Juridico</option>
-            <option value="Logistica">Logistica</option>
-        </select>
-        <button class="simple-btn" type="submit">Filtrar</button>
-    </form>
-
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Título</th>
-            <th>Setor do chamado</th>
-            <th>Prioridade</th>
-            <th>Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="ticket : ${ticketsSetorDirecionamento}">
-            <td th:text="${ticket.nome}"></td>
-            <td th:text="${ticket.tituloChamado}"></td>
-            <td th:text="${ticket.setorDeDirecionamento}"></td>
-            <td th:text="${ticket.prioridade}"></td>
-            <td th:text="${ticket.status}"></td>
-        </tr>
-        </tbody>
-    </table>
     <script>
         $('.toast').toast('show');
     </script>
