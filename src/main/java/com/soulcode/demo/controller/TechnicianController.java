@@ -47,6 +47,8 @@ public class TechnicianController {
         model.addAttribute("setorDoUsuario", setorDoUsuario);
         model.addAttribute("usuarioNome", usuario.getNome());
 
+        boolean verificacaoUser = usuario != null;
+        model.addAttribute("verificacaoUser", verificacaoUser);
 
         List<Ticket> ticketsDoTecnicoEmAndamento = ticketRepository.findByStatus(Status.Em_atendimento);
 

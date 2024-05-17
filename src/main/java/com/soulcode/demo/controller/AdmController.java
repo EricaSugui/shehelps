@@ -33,11 +33,11 @@ public class AdmController {
     @Autowired
     TicketService ticketService;
 
-    @GetMapping("admin")
+    @GetMapping("/admin")
     public String todosChamados(Model model,
                                 HttpSession session,
-                                @ModelAttribute("filtroPropriedade") Ticket filtroPropriedade,
-                                @ModelAttribute("filtroSetor") Ticket filtroSetor) {
+                                @RequestParam(required = false) String prioridade,
+                                @RequestParam(required = false) String setorDeDirecionamento) {
 
         Persona usuario = (Persona) session.getAttribute("usuarioLogado");
         if (usuario == null || !usuario.getTipo().equals(ADMINISTRADOR)) {
@@ -46,29 +46,38 @@ public class AdmController {
 
         model.addAttribute("usuario", usuario);
 
-        List<Ticket> items = ticketRepository.findAll();
+        boolean verificacaoUser = usuario != null;
+        model.addAttribute("verificacaoUser", verificacaoUser);
+
+        List<Ticket> items;
+        if ((prioridade != null && !prioridade.isEmpty()) && (setorDeDirecionamento != null && !setorDeDirecionamento.isEmpty())) {
+            Sector setorEnum = Sector.valueOf(setorDeDirecionamento);
+            items = ticketRepository.findByPrioridadeAndSetorDeDirecionamento(prioridade, setorEnum);
+        } else if (prioridade != null && !prioridade.isEmpty()) {
+            items = ticketRepository.findByPrioridade(prioridade);
+        } else if (setorDeDirecionamento != null && !setorDeDirecionamento.isEmpty()) {
+            Sector setorEnum = Sector.valueOf(setorDeDirecionamento);
+            items = ticketRepository.findBySetorDeDirecionamento(setorEnum);
+        } else {
+            items = ticketRepository.findAll();
+        }
+
         model.addAttribute("items", items);
 
-        List<Ticket> statusEmAberto = ticketRepository.findByStatus(Aguardando_técnico);
-        List<Ticket> statusEmAtendimento = ticketRepository.findByStatus(Em_atendimento);
-        List<Ticket> statusFinalizado = ticketRepository.findByStatus(Finalizado);
-
-        int contagemStatusEmAberto = statusEmAberto.size();
-        int contagemStatusEmAtendimento = statusEmAtendimento.size();
-        int contagemStatusFinalizado = statusFinalizado.size();
+        int contagemStatusEmAberto = (int) items.stream().filter(item -> item.getStatus().equals(Aguardando_técnico)).count();
+        int contagemStatusEmAtendimento = (int) items.stream().filter(item -> item.getStatus().equals(Em_atendimento)).count();
+        int contagemStatusFinalizado = (int) items.stream().filter(item -> item.getStatus().equals(Finalizado)).count();
 
         model.addAttribute("contagemStatusEmAberto", contagemStatusEmAberto);
         model.addAttribute("contagemStatusEmAtendimento", contagemStatusEmAtendimento);
         model.addAttribute("contagemStatusFinalizado", contagemStatusFinalizado);
 
-        List<Ticket> ticketsFiltradosPrioridade = ticketService.filtrarPorPrioridade(filtroPropriedade.getPrioridade());
-        model.addAttribute("ticketsFiltradosPrioridade", ticketsFiltradosPrioridade);
-
-        List<Ticket> ticketsSetorDirecionamento = ticketService.filtrarPorSetorDirecionamento(filtroSetor.getSetorDeDirecionamento());
-        model.addAttribute("ticketsSetorDirecionamento", ticketsSetorDirecionamento);
+        model.addAttribute("filtroPropriedade", prioridade);
+        model.addAttribute("filtroSetor", setorDeDirecionamento);
 
         return "admin";
     }
+
 
     @PostMapping("/admin")
     public String tratarChamado(@RequestParam("id") Long id, @ModelAttribute("ticket") Ticket aberto, HttpSession session, RedirectAttributes redirectAttributes) {

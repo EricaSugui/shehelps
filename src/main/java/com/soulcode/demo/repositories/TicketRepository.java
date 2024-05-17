@@ -15,10 +15,10 @@ import java.util.Optional;
 public interface TicketRepository extends JpaRepository<Ticket, Integer> {
     List<Ticket>findByPrioridade(String prioridade);
     List<Ticket> findBySetorDeDirecionamento(Sector sector);
-    //List<Ticket> findBySetorDeDirecionamentoStatus(Sector sector,Status status);
     List<Ticket> findByStatus(Status status);
     Optional<Ticket> findById(Long id);
     List<Ticket> findByStatusIn(List<Status> statusList);
     List<Ticket> findByEmail(String email);
     List<Ticket> findByEmailAndStatus(String email, Status status);
+    List<Ticket> findByPrioridadeAndSetorDeDirecionamento(String prioridade, Sector setorDeDirecionamento);
 }
