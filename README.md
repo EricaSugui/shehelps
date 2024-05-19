@@ -32,12 +32,12 @@ Este é um sistema de gestão de chamados desenvolvido em Java utilizando o Spri
 
 1. Clone o repositório para sua máquina local:
     ```bash
-    git clone https://github.com/seu-usuario/seu-repositorio.git
+    git clone https://github.com/manuscruz/shehelps.git
     ```
 
 2. Navegue até o diretório do projeto:
     ```bash
-    cd seu-repositorio
+    cd shehelps
     ```
 
 3. Configure o banco de dados MySQL:
