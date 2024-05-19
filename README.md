@@ -41,10 +41,10 @@ Este é um sistema de gestão de chamados desenvolvido em Java utilizando o Spri
     ```
 
 3. Configure o banco de dados MySQL:
-    - Crie um banco de dados chamado `sistema_chamados`.
+    - Crie um banco de dados chamado `shehelps`.
     - Atualize as configurações do banco de dados no arquivo `application.properties`:
       ```properties
-      spring.datasource.url=jdbc:mysql://localhost:3306/sistema_chamados
+      spring.datasource.url=jdbc:mysql://localhost:3306/shehelps
       spring.datasource.username=seu-usuario
       spring.datasource.password=sua-senha
       ```
